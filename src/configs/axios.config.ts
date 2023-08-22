@@ -29,6 +29,10 @@ axiosConfig.interceptors.response.use(
 );
 
 const validateRefreshToken = () => {
+  console.log(Cookies);
+  const refresh = false;
+  const dateStr = Cookies;
   const token = Cookies.get("access_token");
+
   return token;
 };

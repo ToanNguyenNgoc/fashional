@@ -1,5 +1,5 @@
 import { axiosConfig } from "@/configs";
-import { ILogin, IRegister } from "@/interfaces/auth";
+import { IForgot, ILogin, IRegister } from "@/interfaces/auth";
 
 export const authApi = {
   login: (body: ILogin) => {
@@ -7,5 +7,8 @@ export const authApi = {
   },
   register: (body: IRegister) => {
     return axiosConfig.post("/auth/register", body).then((res) => res.data);
+  },
+  forgot: (body: IForgot) => {
+    return axiosConfig.post("auth/forgot", body).then((res) => res.data);
   },
 };
