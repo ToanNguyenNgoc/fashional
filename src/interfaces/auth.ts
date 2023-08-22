@@ -9,3 +9,11 @@ export interface IRegister {
   email: string;
   password: string;
 }
+
+export interface IForgot {
+  recaptcha?: string;
+  platform?: string;
+  email?: string;
+  password?: string;
+  rePassword?: string;
+}

@@ -1,17 +1,20 @@
-import { validate } from "@/utils";
-import { Button, TextField } from "@mui/material";
-import React from "react";
-import * as Yup from "yup";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { IRegister } from "@/interfaces/auth";
-import { useMutation } from "react-query";
-import { authApi } from "@/services";
+import { AlertNoti } from "@/components";
 import { useAlert } from "@/hooks/useAlert";
+import { authApi } from "@/services";
+import { validate } from "@/utils";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoadingButton } from "@mui/lab";
+import { Container } from "@mui/material";
+import { AxiosError } from "axios";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import * as Yup from "yup";
+import style from "../style.module.css";
+import { IRegister } from "@/interfaces";
 
-export default function Register() {
+export default function RegisterPage() {
   const { resultLoad, onCloseNoti, noti } = useAlert();
-
   const validationSchema = Yup.object({
     fullname: Yup.string().required("Vui lòng nhập họ và tên"),
     telephone: Yup.string()
@@ -27,17 +30,17 @@ export default function Register() {
     //   .required("Password is required")
     //   .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
     //   .max(32, "Mật khẩu phải có nhiều nhất 32 ký tự")
-    //   .matches(
-    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~@$!%*?&^+#_=-])[A-Za-z\d~@$!%*?&^+#_=-]*$/,
-    //     "Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 kí tự"
-    //   ),
+    //   .matches(validate.password, {
+    //     message:
+    //       "Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 kí tự",
+    //   }),
   });
 
   const {
+    register,
     formState: { errors },
     handleSubmit,
     reset,
-    control,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: { email: "", password: "", fullname: "", telephone: "" },
@@ -45,78 +48,117 @@ export default function Register() {
 
   const onSubmit = (data: IRegister) => {
     mutate(data);
-    console.log(data);
   };
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: (body: IRegister) => authApi.register(body),
-    onSuccess: async (res: any) => {
+    onSuccess: async () => {
       reset();
-      console.log(res);
+      resultLoad({
+        message: "Đăng ký thành công",
+        color: "success",
+      });
     },
-    onError: () => {},
+    onError: (error) => {
+      const err = error as AxiosError<{ message: string }>;
+      resultLoad({
+        message: err.response?.data?.message ?? "",
+        color: "error",
+      });
+    },
   });
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="fullname"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              label="Họ và tên"
-              error={Boolean(errors.fullname)}
-              helperText={errors.fullname?.message}
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              label="Email"
-              error={Boolean(errors.email)}
-              helperText={errors.email?.message}
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              label="Mật khẩu"
-              error={Boolean(errors.password)}
-              helperText={errors.password?.message}
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          name="telephone"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              label="Số điện thoại"
-              error={Boolean(errors.telephone)}
-              helperText={errors.telephone?.message}
-              {...field}
-            />
-          )}
-        />
+      <AlertNoti
+        open={noti.openAlert}
+        close={onCloseNoti}
+        severity={noti.color}
+        message={noti.message}
+      />
 
-        <Button type="submit" variant="contained">
-          Đăng ký
-        </Button>
-      </form>
+      <Container>
+        <div className={style.loginWraper}>
+          <div className={style.loginLeft}></div>
+          <div className={style.loginRight}>
+            <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
+              <p className={style.loginTitle}>Đăng ký</p>
+              <div className={style.formRow}>
+                <div className={style.wrapInput}>
+                  <input
+                    {...register("fullname", { required: true })}
+                    type="text"
+                    placeholder="Họ và tên"
+                    className={style.input}
+                  />
+                  {errors.fullname && (
+                    <p className={style.textErr}>{errors.fullname.message}</p>
+                  )}
+                </div>
+                <div className={style.wrapInput}>
+                  <input
+                    {...register("telephone", { required: true })}
+                    type="number"
+                    placeholder="Số điện thoại"
+                    className={style.input}
+                  />
+                  {errors.telephone && (
+                    <p className={style.textErr}>{errors.telephone.message}</p>
+                  )}
+                </div>
+              </div>
+
+              <div style={{ margin: "0" }} className={style.wrapInput}>
+                <input
+                  {...register("email", { required: true })}
+                  type="text"
+                  placeholder="Email"
+                  className={style.input}
+                />
+                {errors.email && (
+                  <p className={style.textErr}>{errors.email.message}</p>
+                )}
+              </div>
+
+              <div className={style.wrapInput}>
+                <input
+                  {...register("password", { required: true })}
+                  type="password"
+                  placeholder="Mật khẩu"
+                  className={style.input}
+                />
+                {errors.password && (
+                  <p className={style.textErr}>{errors.password.message}</p>
+                )}
+              </div>
+
+              <div className={style.wrapInput}>
+                <LoadingButton
+                  type="submit"
+                  style={{
+                    backgroundColor: "var(--primary)",
+                    padding: "18px 14px",
+                    width: "100%",
+                    borderRadius: "8px",
+                    fontWeight: "bold",
+                  }}
+                  loading={isLoading}
+                  variant="contained"
+                >
+                  Đăng ký
+                </LoadingButton>
+              </div>
+
+              <div className={style.wrapInput}>
+                <p className={style.formRegisText}>
+                  Bạn đã có có tài khoản?{" "}
+                  <Link href="/auth/login">Đăng nhập ngay</Link>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Container>
     </>
   );
 }
