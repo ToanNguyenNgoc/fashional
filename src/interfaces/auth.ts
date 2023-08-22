@@ -11,8 +11,9 @@ export interface IRegister {
 }
 
 export interface IForgot {
-  recaptcha: string;
-  platform: string;
-  email: string;
+  recaptcha?: string;
+  platform?: string;
+  email?: string;
   password?: string;
+  rePassword?: string;
 }

@@ -1,6 +1,5 @@
 import { AlertNoti } from "@/components";
 import { useAlert } from "@/hooks/useAlert";
-import { IRegister } from "@/interfaces/auth";
 import { authApi } from "@/services";
 import { validate } from "@/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
+import { IRegister } from "@/interfaces";
 
 export default function RegisterPage() {
   const { resultLoad, onCloseNoti, noti } = useAlert();

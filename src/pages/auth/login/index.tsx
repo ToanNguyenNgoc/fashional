@@ -1,6 +1,5 @@
 import { AlertNoti } from "@/components";
 import { useAlert } from "@/hooks/useAlert";
-import { ILogin } from "@/interfaces/auth";
 import { authApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
@@ -18,6 +17,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "next/link";
 import { baseURL } from "@/configs";
 import { FcGoogle } from "react-icons/fc";
+import { ILogin } from "@/interfaces";
 
 export default function LoginPage() {
   const router = useRouter();
