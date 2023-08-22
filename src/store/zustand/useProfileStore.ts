@@ -1,4 +1,4 @@
-import { profileApi } from "@/services/profile.api";
+import { profileApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
 import { create } from "zustand";
 
