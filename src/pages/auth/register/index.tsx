@@ -1,6 +1,5 @@
 import { AlertNoti } from "@/components";
 import { useAlert } from "@/hooks/useAlert";
-import { IRegister } from "@/interfaces/auth";
 import { authApi } from "@/services";
 import { validate } from "@/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
+import { IRegister } from "@/interfaces";
 
 export default function RegisterPage() {
   const { resultLoad, onCloseNoti, noti } = useAlert();
@@ -29,7 +29,7 @@ export default function RegisterPage() {
     // password: Yup.string()
     //   .required("Password is required")
     //   .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
-    //   .max(32, "Mật khẩu phải có nhiều nhất 32 ký tự")
+    //   .max(32, "Mật khẩu nhiều nhất 32 ký tự")
     //   .matches(validate.password, {
     //     message:
     //       "Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 kí tự",
