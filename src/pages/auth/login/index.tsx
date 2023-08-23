@@ -36,7 +36,7 @@ export default function LoginPage() {
     // password: Yup.string()
     //   .required("Password is required")
     //   .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
-    //   .max(32, "Mật khẩu phải có nhiều nhất 32 ký tự")
+    //   .max(32, "Mật khẩu nhiều nhất 32 ký tự")
     //   .matches(validate.password, {
     //     message:
     //       "Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 kí tự",
@@ -49,7 +49,7 @@ export default function LoginPage() {
       Cookies.set("token_expired_at", res.context.token_expired_at, {
         secure: true,
       });
-      Cookies.set("access_token", res.context.accessToken, {
+      Cookies.set("accessToken", res.context.accessToken, {
         secure: true,
       });
       getProfile();
@@ -75,7 +75,6 @@ export default function LoginPage() {
     formState: { errors },
     handleSubmit,
     reset,
-    control,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: { email: "", password: "" },

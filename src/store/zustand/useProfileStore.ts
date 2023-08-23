@@ -8,7 +8,7 @@ export const useProfileStore = create<IProfileState>()((set) => ({
   getProfile: async () => {
     try {
       const res = await profileApi.getProfile();
-      set((state) => ({ profile: res.data, isLoading: false }));
+      set((state) => ({ profile: res.context, isLoading: false }));
     } catch (error) {
       set((state) => ({ isLoading: false }));
     }

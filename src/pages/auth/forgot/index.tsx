@@ -18,7 +18,9 @@ import * as Yup from "yup";
 import style from "../style.module.css";
 import { IForgot } from "@/interfaces";
 import { AxiosCusError } from "@/interfaces/res";
-import queryString from "query-string";
+import Cookies from "js-cookie";
+import _ from "lodash";
+
 interface ResError {
   error: string;
   message: string[] | string;
@@ -29,20 +31,22 @@ const ForgotPage = () => {
   const { resultLoad, onCloseNoti, noti } = useAlert();
   const router = useRouter();
   const [captcha, setCaptcha] = useState("");
-  const queryParams = router.query.token;
-  console.log(queryParams);
+  const queryTokenParams = router.query.token as string | undefined;
+  const token = Cookies.get("access_token");
   const verifyRecaptchaCallback = useCallback((token: string) => {
     setCaptcha(token);
   }, []);
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Vui lòng nhập email")
-      .matches(validate.email, { message: "Vui lòng nhập đúng định dạng" }),
-    password: queryParams
+    email: queryTokenParams
+      ? Yup.string()
+      : Yup.string()
+          .required("Vui lòng nhập email")
+          .matches(validate.email, { message: "Vui lòng nhập đúng định dạng" }),
+    password: !queryTokenParams
       ? Yup.string()
       : Yup.string().required("Vui lòng nhập mật khẩu"),
-    rePassword: queryParams
+    rePassword: !queryTokenParams
       ? Yup.string()
       : Yup.string()
           .required("Vui lòng nhập mật khẩu")
@@ -62,13 +66,13 @@ const ForgotPage = () => {
     mutationFn: (body: IForgot) => authApi.forgot(body),
     onSuccess: () => {
       setRefreshReCaptcha((r) => !r);
-      if (!queryParams) {
+      if (!queryTokenParams) {
         resultLoad({
           message: "Mã xác thực đã được gửi đến Email của bạn",
           color: "success",
         });
       }
-      if (queryParams) {
+      if (queryTokenParams) {
         resultLoad({
           message: "Thay đổi mật khẩu thành công",
           color: "success",
@@ -93,7 +97,17 @@ const ForgotPage = () => {
     if (captcha === "") {
       setRefreshReCaptcha((r) => !r);
     } else {
-      mutate({ ...data, recaptcha: captcha, platform: "CLIENT" });
+      const newData: IForgot = {
+        ...data,
+        recaptcha: captcha,
+        platform: "CLIENT",
+        token: queryTokenParams,
+      };
+      if (queryTokenParams) {
+        mutate(_.omit(newData, "rePassword", "email"));
+      } else {
+        mutate(_.omit(newData, "password", "rePassword", "token"));
+      }
     }
   };
 
@@ -123,10 +137,10 @@ const ForgotPage = () => {
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <p className={style.loginTitle}>
-                  {queryParams ? "Đổi mật khẩu" : "Lấy lại mật khẩu"}
+                  {queryTokenParams ? "Đổi mật khẩu" : "Lấy lại mật khẩu"}
                 </p>
 
-                {queryParams ? (
+                {queryTokenParams ? (
                   <>
                     <div className={style.wrapInput}>
                       <input
@@ -182,7 +196,7 @@ const ForgotPage = () => {
                     loading={isLoading}
                     variant="contained"
                   >
-                    {queryParams ? "Đổi mật khẩu" : "Lấy lại mật khẩu"}
+                    {queryTokenParams ? "Đổi mật khẩu" : "Lấy lại mật khẩu"}
                   </LoadingButton>
                   <div className={style.wrapInput}>
                     <p className={style.formRegisText}>
