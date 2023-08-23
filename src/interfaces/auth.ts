@@ -16,4 +16,5 @@ export interface IForgot {
   email?: string;
   password?: string;
   rePassword?: string;
+  token?: string | undefined;
 }
