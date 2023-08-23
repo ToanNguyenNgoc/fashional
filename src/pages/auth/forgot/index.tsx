@@ -16,8 +16,8 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
-import { IForgot } from "@/interfaces";
-import { AxiosCusError } from "@/interfaces/res";
+import { IForgot } from "@/interfaces/index.type";
+import { AxiosCusError } from "@/interfaces/res.type";
 import _ from "lodash";
 
 interface ResError {
@@ -25,6 +25,7 @@ interface ResError {
   message: string[] | string;
   statusCode: number;
 }
+
 const ForgotPage = () => {
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   const { resultLoad, onCloseNoti, noti } = useAlert();
@@ -35,12 +36,12 @@ const ForgotPage = () => {
     setCaptcha(token);
   }, []);
 
-  const validationSchema = Yup.object({
+  const schemaForgot = Yup.object({
     email: queryTokenParams
       ? Yup.string()
       : Yup.string()
           .required("Vui lòng nhập email")
-          .matches(validate.email, { message: "Vui lòng nhập đúng định dạng" }),
+          .matches(validate.email, "Vui lòng nhập đúng định dạng"),
     password: !queryTokenParams
       ? Yup.string()
       : Yup.string().required("Vui lòng nhập mật khẩu"),
@@ -48,17 +49,37 @@ const ForgotPage = () => {
       ? Yup.string()
       : Yup.string()
           .required("Vui lòng nhập mật khẩu")
-          .oneOf([Yup.ref("password")], "Your passwords do not match."),
+          .oneOf([Yup.ref("password")], "Mật khẩu không khớp."),
   });
+
+  type FormData = Yup.InferType<typeof schemaForgot>;
 
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(schemaForgot),
     defaultValues: { email: "", password: "", rePassword: "" },
   });
+
+  const onSubmit = (data: FormData) => {
+    if (captcha === "") {
+      setRefreshReCaptcha((r) => !r);
+    } else {
+      const newData: IForgot = {
+        ...data,
+        recaptcha: captcha,
+        platform: "CLIENT",
+        token: queryTokenParams,
+      };
+      if (queryTokenParams) {
+        mutate(_.omit(newData, "email"));
+      } else {
+        mutate(_.omit(newData, "password", "token"));
+      }
+    }
+  };
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (body: IForgot) => authApi.forgot(body),
@@ -69,15 +90,14 @@ const ForgotPage = () => {
           message: "Mã xác thực đã được gửi đến Email của bạn",
           color: "success",
         });
-      }
-      if (queryTokenParams) {
+      } else {
         resultLoad({
           message: "Thay đổi mật khẩu thành công",
           color: "success",
         });
         setTimeout(() => {
           router.push("/auth/login");
-        }, 3000);
+        }, 1000);
       }
     },
     onError: (err: AxiosCusError<ResError>) => {
@@ -90,24 +110,6 @@ const ForgotPage = () => {
       });
     },
   });
-
-  const onSubmit = (data: IForgot) => {
-    if (captcha === "") {
-      setRefreshReCaptcha((r) => !r);
-    } else {
-      const newData: IForgot = {
-        ...data,
-        recaptcha: captcha,
-        platform: "CLIENT",
-        token: queryTokenParams,
-      };
-      if (queryTokenParams) {
-        mutate(_.omit(newData, "rePassword", "email"));
-      } else {
-        mutate(_.omit(newData, "password", "rePassword", "token"));
-      }
-    }
-  };
 
   return (
     <>
@@ -142,7 +144,7 @@ const ForgotPage = () => {
                   <>
                     <div className={style.wrapInput}>
                       <input
-                        {...register("password", { required: true })}
+                        {...register("password")}
                         type="password"
                         placeholder="Mật khẩu"
                         className={style.input}
@@ -155,7 +157,7 @@ const ForgotPage = () => {
                     </div>
                     <div className={style.wrapInput}>
                       <input
-                        {...register("rePassword", { required: true })}
+                        {...register("rePassword")}
                         type="password"
                         placeholder="Nhập lại mật khẩu"
                         className={style.input}

@@ -1,7 +1,7 @@
 import { Alert, AlertColor, Snackbar } from "@mui/material";
 import { ReactNode } from "react";
 
-interface AppSnackProps {
+interface AlertProps {
   open?: boolean;
   close?: () => void;
   severity?: AlertColor;
@@ -9,7 +9,7 @@ interface AppSnackProps {
   message?: string;
 }
 
-export function AlertNoti(props: AppSnackProps) {
+export function AlertNoti(props: AlertProps) {
   const { open = false, close, severity = "info", children, message } = props;
   const handleClose = () => {
     if (close) {

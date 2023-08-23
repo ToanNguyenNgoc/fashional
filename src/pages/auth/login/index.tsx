@@ -17,9 +17,13 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "next/link";
 import { baseURL } from "@/configs";
 import { FcGoogle } from "react-icons/fc";
-import { ILogin } from "@/interfaces";
+import { NextPageWithLayout } from "@/common";
+import { ILogin } from "@/interfaces/index.type";
+import { MainLayout } from "@/layouts";
+import Image from "next/image";
+import { imgs } from "@/assets/imgs";
 
-export default function LoginPage() {
+const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
 
   const { resultLoad, onCloseNoti, noti } = useAlert();
@@ -95,7 +99,16 @@ export default function LoginPage() {
 
       <Container>
         <div className={style.loginWraper}>
-          <div className={style.loginLeft}></div>
+          <div className={style.loginLeft}>
+            <div className={style.banner}>
+              <Image
+                src={imgs.imgBanner}
+                width={800}
+                height={400}
+                alt="Picture of the author"
+              />
+            </div>
+          </div>
           <div className={style.loginRight}>
             <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
               <p className={style.loginTitle}>Đăng nhập</p>
@@ -180,4 +193,6 @@ export default function LoginPage() {
       </Container>
     </>
   );
-}
+};
+LoginPage.Layout = MainLayout;
+export default LoginPage;

@@ -1,4 +1,4 @@
-import { User } from "@/interfaces/user";
+import { User } from "@/interfaces/user.type";
 
 export type IProfileState = {
   profile: User | null;

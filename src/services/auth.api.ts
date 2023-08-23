@@ -1,5 +1,5 @@
 import { axiosConfig } from "@/configs";
-import { IForgot, ILogin, IRegister } from "@/interfaces/auth";
+import { IForgot, ILogin, IRegister } from "@/interfaces/auth.type";
 
 export const authApi = {
   login: (body: ILogin) => {

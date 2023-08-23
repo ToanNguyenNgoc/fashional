@@ -6,7 +6,11 @@
 }
 .loginLeft {
   width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .loginRight {
   width: 50%;
   display: flex;
@@ -56,7 +60,7 @@
 .textErr {
   font-size: 14px;
   color: var(--red);
-  margin: 14px 0 0 14px;
+  margin: 12px 0 0 16px;
 }
 .formCheckbox {
   display: flex;

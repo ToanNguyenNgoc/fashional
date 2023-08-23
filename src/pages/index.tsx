@@ -1,8 +1,10 @@
+import { NextPageWithLayout } from "@/common";
 import { Seo } from "@/components";
+import { MainLayout } from "@/layouts";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
 
-export default function Home() {
+const Home: NextPageWithLayout = (props) => {
   const profile = useProfileStore((state: IProfileState) => state.profile);
   console.log(profile);
   return (
@@ -12,4 +14,6 @@ export default function Home() {
       <p>{profile?.fullname}</p>
     </>
   );
-}
+};
+Home.Layout = MainLayout;
+export default Home;
