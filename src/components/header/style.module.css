@@ -119,7 +119,8 @@
   transition: transform 0s, opacity 0s;
   transition-delay: 0s;
   cursor: pointer;
-  text-align: center;
+  text-transform: capitalize;
+  /* text-align: center; */
 }
 .menu:hover .subMenu {
   opacity: 1;
@@ -174,7 +175,20 @@
   color: var(--primary);
   font-size: 14px;
 }
-
+.subMemuList {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.subMemuItem {
+  color: var(--text-gray);
+  font-size: 14px;
+  cursor: pointer;
+}
+.subMemuItem:hover {
+  color: var(--primary);
+}
 @media only screen and (max-height: 800px) {
   .subMenus {
     overflow: auto;

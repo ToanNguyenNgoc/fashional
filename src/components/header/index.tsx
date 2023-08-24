@@ -1,19 +1,16 @@
 import { imgs } from "@/assets/imgs";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
-// import Masonry from "@mui/lab/Masonry";
+import Masonry from "@mui/lab/Masonry";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { BiCart, BiSearch } from "react-icons/bi";
 import style from "./style.module.css";
-import { useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { tagApi } from "@/services/tag.api";
-
-const heights = [
-  132131250, 312312312310, 1231321290, 7123120, 1123123123110, 150, 1331230,
-  8123120, 513120, 931230, 131200, 150, 30, 50, 80,
-];
+import { ITag } from "@/interfaces/tags.type";
+import { ICategories } from "@/interfaces/categories.type";
 
 export default function Header() {
   const [profile, logoutProfile] = useProfileStore((state: IProfileState) => [
@@ -21,14 +18,25 @@ export default function Header() {
     state.logoutProfile,
   ]);
 
-  const { mutate: tags, isLoading } = useMutation({
-    mutationKey: ["TAGS"],
-    mutationFn: () =>
-      tagApi.getTags({ includes: "categories", status: "true" }),
+  const params = {
+    includes: "categories",
+    status: true,
+    page: 1,
+    limit: 15,
+  };
+
+  const { data: tags, isLoading } = useQuery({
+    queryKey: ["TAGS"],
+    queryFn: () => tagApi.getTags(params),
     onSuccess: () => {},
     onError: () => {},
   });
-  console.log(tags);
+  const tagsShop = tags?.context?.data.filter((item: ITag) => {
+    return item.type === "SHOP";
+  });
+  const tagsCollab = tags?.context?.data.filter((item: ITag) => {
+    return item.type === "COLLAB";
+  });
   return (
     <>
       <div className={style.header}>
@@ -50,17 +58,22 @@ export default function Header() {
                 <Link href="#">Shop</Link>
                 <div className={style.subMenus}>
                   <ul className={style.subMenusWrap}>
-                    {/* <Masonry columns={5} spacing={2}>
-                      {heights.map((height, index) => (
-                        <li className={style.subMenu} key={index}>
-                          {height}
-                        </li>
-                      ))}
-                    </Masonry> */}
-                    <li className={style.subMenu}>cate 1</li>
-                    <li className={style.subMenu}>cate 2</li>
-                    <li className={style.subMenu}>cate 3</li>
-                    <li className={style.subMenu}>cate 4</li>
+                    {tagsShop && (
+                      <Masonry columns={4} spacing={3}>
+                        {tagsShop?.map((item: ITag) => (
+                          <li key={item.id} className={style.subMenu}>
+                            {item.name}
+                            <ul className={style.subMemuList}>
+                              {item?.categories?.map((item: ICategories) => (
+                                <li className={style.subMemuItem} key={item.id}>
+                                  {item?.name}
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        ))}
+                      </Masonry>
+                    )}
                   </ul>
                 </div>
               </li>
@@ -68,8 +81,22 @@ export default function Header() {
                 <Link href="#">Collaps</Link>
                 <div className={style.subMenus}>
                   <ul className={style.subMenusWrap}>
-                    <li className={style.subMenu}>cate 1</li>
-                    <li className={style.subMenu}>cate 2</li>
+                    {tagsCollab && (
+                      <Masonry columns={4} spacing={2}>
+                        {tagsCollab?.map((item: ITag) => (
+                          <li key={item.id} className={style.subMenu}>
+                            {item.name}
+                            <ul className={style.subMemuList}>
+                              {item?.categories?.map((item: ICategories) => (
+                                <li className={style.subMemuItem} key={item.id}>
+                                  {item?.name}
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        ))}
+                      </Masonry>
+                    )}
                   </ul>
                 </div>
               </li>
