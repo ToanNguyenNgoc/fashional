@@ -11,9 +11,8 @@ const Home: NextPageWithLayout = (props) => {
     <>
       <Seo />
       <main>Home page</main>
-      <p>{profile?.fullname}</p>
     </>
   );
 };
-Home.Layout = MainLayout;
 export default Home;
+Home.Layout = MainLayout;

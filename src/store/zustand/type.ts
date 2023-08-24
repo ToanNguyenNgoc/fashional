@@ -1,9 +1,9 @@
-import { User } from "@/interfaces/user.type";
+import { IUser } from "@/interfaces/user.type";
 
 export type IProfileState = {
-  profile: User | null;
+  profile: IUser | null;
   isLoading: boolean;
   getProfile: () => Promise<void>;
-  // logoutProfile: () => Promise<void>;
+  logoutProfile: () => Promise<void>;
   // putProfile: (newProfile: User) => void;
 };

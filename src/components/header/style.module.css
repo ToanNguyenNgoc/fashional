@@ -17,14 +17,10 @@
 .menus {
   display: flex;
   align-items: center;
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   margin: 0 auto;
   height: 64px;
   overflow: hidden;
-  max-width: 1255px;
+  max-width: 1200px;
 }
 .menu {
   cursor: pointer;
@@ -32,8 +28,10 @@
   height: 100%;
   display: flex;
   align-items: center;
+  max-height: 90%;
   padding: 0 15px;
 }
+
 .menu:hover {
   border-bottom: 2px solid var(--primary);
 }
@@ -42,6 +40,7 @@
   align-items: center;
   gap: 14px;
   justify-content: center;
+  height: 100%;
 }
 .search {
   position: relative;
@@ -67,6 +66,9 @@
 }
 .logo {
   animation: rotate 10s linear infinite;
+}
+.logoWrap a {
+  display: inline-block;
 }
 .user,
 .logo,
@@ -99,7 +101,7 @@
   transform: scaleY(0);
   background-color: var(--white);
   width: 100%;
-  padding: 48px 0 68px 0;
+  padding: 40px 0 68px 0;
   display: flex;
 }
 .subMenusWrap {
@@ -114,15 +116,63 @@
 .subMenu {
   opacity: 0;
   transform: translateY(-10px);
-  transition: transform 0.1s, opacity 0.1s;
+  transition: transform 0s, opacity 0s;
   transition-delay: 0s;
   cursor: pointer;
+  text-align: center;
 }
 .menu:hover .subMenu {
   opacity: 1;
   transform: translateY(0);
   transition: transform 0.3s ease, opacity 0.2s linear;
   transition-delay: 0.2s;
+}
+.user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.userWrap {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.userWrap:hover .userDropWrap {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.2s, visibility 0s, transform 0.25s ease;
+}
+.userDropWrap {
+  position: absolute;
+  min-width: 240px;
+  right: 0;
+  top: 64px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.2s, visibility 0s linear 0.2s, transform 0.25s ease;
+  background-color: var(--white);
+  padding: 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.userDrop {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.userDropItem a,
+.userDropItem {
+  width: 100%;
+  cursor: pointer;
+  color: var(--text-gray);
+  font-size: 14px;
+}
+.userDropItem:hover a,
+.userDropItem:hover {
+  color: var(--primary);
+  font-size: 14px;
 }
 
 @media only screen and (max-height: 800px) {

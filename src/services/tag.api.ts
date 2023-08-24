@@ -1,13 +1,12 @@
 import { axiosConfig } from "@/configs";
+import { IPage } from "@/interfaces/page";
 
-interface value {
-  page: string;
-  limit: string;
-  includes: string;
-  status: boolean;
+export interface IQrtag extends IPage {
+  includes?: string;
+  status?: string;
 }
 export const tagApi = {
-  getTags: (params: value) => {
-    // return axiosConfig.get("/tags", params);
+  getTags: (qr: IQrtag) => {
+    return axiosConfig.get("/tags", { params: qr }).then((res) => res.data);
   },
 };
