@@ -5,15 +5,12 @@ import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
 
 const Home: NextPageWithLayout = (props) => {
-  const profile = useProfileStore((state: IProfileState) => state.profile);
-  console.log(profile);
   return (
     <>
       <Seo />
       <main>Home page</main>
-      <p>{profile?.fullname}</p>
     </>
   );
 };
-Home.Layout = MainLayout;
 export default Home;
+Home.Layout = MainLayout;

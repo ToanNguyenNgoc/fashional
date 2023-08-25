@@ -1,6 +1,7 @@
-import { profileApi } from "@/services";
+import { authApi, profileApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
 import { create } from "zustand";
+import Cookies from "js-cookie";
 
 export const useProfileStore = create<IProfileState>()((set) => ({
   profile: null,
@@ -13,4 +14,14 @@ export const useProfileStore = create<IProfileState>()((set) => ({
       set((state) => ({ isLoading: false }));
     }
   },
+  logoutProfile: async () => {
+    await authApi.logout();
+    Cookies.remove("access_token");
+    Cookies.remove("refresh_token");
+    Cookies.remove("token_expired_at");
+    set(() => ({ profile: null }));
+  },
+  // putProfile: (payload) => {
+  //   set((state) => ({ profile: { ...state.profile, ...payload } }));
+  // },
 }));

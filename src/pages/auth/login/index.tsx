@@ -175,7 +175,7 @@ const LoginPage: NextPageWithLayout = () => {
                   }}
                   loading={isLoading}
                   variant="contained"
-                  onClick={() => onLoginSocial("auth/login/google")}
+                  onClick={() => onLoginSocial("/auth/login/google")}
                 >
                   <FcGoogle style={{ marginRight: "8px" }} size={29} />
                   Đăng nhập với google

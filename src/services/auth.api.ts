@@ -11,4 +11,7 @@ export const authApi = {
   forgot: (body: IForgot) => {
     return axiosConfig.post("auth/forgot", body).then((res) => res.data);
   },
+  logout: () => {
+    return axiosConfig.post("auth/logout").then((res) => res.data);
+  },
 };

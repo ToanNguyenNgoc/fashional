@@ -1,13 +1,17 @@
 import { axiosConfig } from "@/configs";
+import { IResponseList } from "@/interfaces/res.type";
+import { IQrtag, ITag } from "@/interfaces/tags.type";
+import axios from "axios";
 
-interface value {
-  page: string;
-  limit: string;
-  includes: string;
-  status: boolean;
-}
 export const tagApi = {
-  getTags: (params: value) => {
-    // return axiosConfig.get("/tags", params);
+  // getTags: (qr: IQrtag) => {
+  //   return axiosConfig
+  //     .get("/tags", { params: qr })
+  //     .then<IResponseList<ITag[]>>((res) => res.data);
+  // },
+  getTags: (qr: IQrtag) => {
+    return axios
+      .get("https://api.fashional.pro/v1/tags", { params: qr })
+      .then<IResponseList<ITag[]>>((res) => res.data);
   },
 };
