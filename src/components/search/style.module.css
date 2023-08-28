@@ -1,0 +1,89 @@
+.searchWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.searchField {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: var(--gray);
+  border-radius: 100px;
+  transition: var(--trans-liner);
+  max-width: 656px;
+  width: 656px;
+}
+.searchField:hover {
+  background-color: var(--gray-hover);
+  transition: var(--trans-liner);
+}
+.searchField input {
+  width: 100%;
+  outline: none;
+  border: 0;
+  margin-left: 8px;
+}
+.searchIcon,
+.closeIcon {
+  flex-shrink: 0;
+}
+.closeIcon,
+.searchClose {
+  cursor: pointer;
+}
+.searchClose {
+  font-weight: 500;
+}
+.searchBox {
+  min-height: 250px;
+  padding: 10px 48px;
+}
+
+.searchResult {
+  width: 100%;
+  padding: 32px 0;
+}
+.searchResultRecomment {
+  margin: 0 auto;
+  max-width: 656px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.searchRerultTitle {
+  color: var(--text-gray);
+  font-weight: 14px;
+}
+.searchResultList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.searchResultItem {
+  font-size: 18px;
+  font-weight: 500;
+}
+.searchResultItem:hover a {
+  color: var(--text-gray);
+}
+
+@media screen and (max-width: 1023.98px) {
+}
+
+@media screen and (max-width: 767.98px) {
+  .searchBox {
+    padding: 10px 15px;
+    height: 100vh;
+    width: 100vw;
+  }
+  .searchLogo {
+    flex-shrink: 0;
+  }
+  .searchWrap {
+    gap: 14px;
+  }
+  .searchField {
+    padding: 8px 16px;
+  }
+}

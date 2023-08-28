@@ -1,5 +1,6 @@
 .header {
   position: relative;
+  z-index: 2;
 }
 .headerWrap {
   display: flex;
@@ -14,7 +15,7 @@
   /* border-bottom: 1px solid var(--gray); */
   background-color: var(--white);
 }
-.menus {
+.menuDesktop {
   display: flex;
   align-items: center;
   margin: 0 auto;
@@ -28,8 +29,8 @@
   height: 100%;
   display: flex;
   align-items: center;
-  max-height: 90%;
   padding: 0 15px;
+  z-index: 2;
 }
 
 .menu:hover {
@@ -38,26 +39,33 @@
 .right {
   display: flex;
   align-items: center;
-  gap: 14px;
   justify-content: center;
   height: 100%;
+  gap: 8px;
 }
 .search {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 8px 10px;
+  padding: 8px 16px;
   background-color: var(--gray);
   border-radius: 100px;
   transition: var(--trans-liner);
   width: 200px;
 }
-.search:hover {
+.search:hover,
+.cart:hover {
   background-color: var(--gray-hover);
   transition: var(--trans-liner);
 }
-.searchIcon {
+.searchIcon,
+.menuIcon {
   flex-shrink: 0;
+}
+.cart {
+  padding: 8px;
+  border-radius: 100px;
+  transition: var(--trans-liner);
 }
 .search input {
   outline: none;
@@ -74,6 +82,7 @@
 .logo,
 .cart {
   cursor: pointer;
+  flex-shrink: 0;
 }
 .menu:hover .subMenus {
   transform: scaleY(1);
@@ -82,7 +91,7 @@
   transition: transform 0.25s ease, opacity 0ms, visibility 0ms;
 }
 .logoWrap {
-  width: 276px;
+  width: 345px;
 }
 .subMenus {
   cursor: default;
@@ -101,8 +110,9 @@
   transform: scaleY(0);
   background-color: var(--white);
   width: 100%;
-  padding: 40px 0 68px 0;
+  padding: 40px 0 48px 0;
   display: flex;
+  z-index: 2;
 }
 .subMenusWrap {
   max-width: 1200px;
@@ -147,7 +157,7 @@
 }
 .userDropWrap {
   position: absolute;
-  min-width: 240px;
+  min-width: 200px;
   right: 0;
   top: 64px;
   opacity: 0;
@@ -189,6 +199,28 @@
 .subMemuItem:hover {
   color: var(--primary);
 }
+.overlay {
+  opacity: 0;
+  z-index: 1;
+  visibility: hidden;
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: opacity 0.25s, visibility 0s linear 0.25s;
+}
+.overlay.isOpen {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease, visibility 0s;
+}
+
+.overlay {
+  background-color: var(--overlay);
+}
+
 @media only screen and (max-height: 800px) {
   .subMenus {
     overflow: auto;
@@ -203,4 +235,37 @@
   to {
     transform: rotate(360deg);
   }
+}
+@media screen and (max-width: 1023.98px) {
+  .menuDesktop {
+    display: none;
+  }
+  .logoWrap {
+    width: max-content;
+  }
+  .headerWrap {
+    padding: 0 15px;
+    height: 60px;
+  }
+  .search {
+    position: unset;
+    align-items: unset;
+    padding: 8px;
+    display: unset;
+    background-color: unset;
+    border-radius: unset;
+    transition: unset;
+    width: max-content;
+  }
+
+  .search:hover {
+    background-color: unset;
+    transition: unset;
+  }
+  .search input {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
 }

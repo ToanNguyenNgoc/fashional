@@ -1,0 +1,95 @@
+.menuIcon {
+  padding: 8px;
+}
+.menuMB {
+  width: 320px;
+  height: 100vh;
+  padding: 16px 24px;
+}
+.closeItem {
+  text-align: right;
+  width: 100%;
+}
+.closeItem svg {
+  display: inline-block;
+}
+.userImage {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.arrIcon {
+  margin-right: 3px;
+}
+.menuMBItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: capitalize;
+}
+.menuListStep2 .menuMBItem:first-child,
+.menuListStep3 .menuMBItem:first-child {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.menuMBList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.menuListStep1 .menuMBList {
+  margin-top: 24px;
+}
+
+.menuItemTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.menuBack {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 31px;
+  padding-bottom: 8px;
+}
+.menuBack p {
+  text-transform: capitalize;
+}
+.menuListStep1 {
+  transform: translateX(0);
+  transition: transform 0.25s;
+}
+.menuListStep2 {
+  transform: translateX(320px);
+  transition: transform 0.25s;
+  position: absolute;
+  top: 36px;
+  width: calc(100% - 48px);
+}
+.menuListStep3 {
+  transform: translateX(320px);
+  transition: transform 0.25s;
+  position: absolute;
+  top: 36px;
+  width: calc(100% - 48px);
+}
+
+.preHideLeft {
+  transform: translateX(-320px);
+  transition: transform 0.25s;
+}
+
+.hidenStep2 {
+  transform: translateX(0px);
+  transition: transform 0.25s;
+}
+
+.preHideright {
+  transform: translateX(0px);
+  transition: transform 0.25s;
+}

@@ -4,12 +4,12 @@
   align-items: center;
   min-height: 100vh;
 }
-.loginLeft {
+/* .loginLeft {
   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .loginRight {
   width: 50%;
@@ -17,6 +17,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  margin: 0 auto;
 }
 .loginForm {
   width: 80%;
@@ -74,4 +75,13 @@
   color: var(--primary);
   cursor: pointer;
   text-decoration: underline;
+}
+
+@media screen and (max-width: 1023.98px) {
+}
+
+@media screen and (max-width: 767.98px) {
+  .loginRight {
+    width: 100%;
+  }
 }

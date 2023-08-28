@@ -99,7 +99,7 @@ const LoginPage: NextPageWithLayout = () => {
 
       <Container>
         <div className={style.loginWraper}>
-          <div className={style.loginLeft}>
+          {/* <div className={style.loginLeft}>
             <div className={style.banner}>
               <Image
                 src={imgs.imgBanner}
@@ -108,7 +108,7 @@ const LoginPage: NextPageWithLayout = () => {
                 alt="Picture of the author"
               />
             </div>
-          </div>
+          </div> */}
           <div className={style.loginRight}>
             <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
               <p className={style.loginTitle}>Đăng nhập</p>

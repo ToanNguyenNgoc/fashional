@@ -130,7 +130,7 @@ const ForgotPage = () => {
       >
         <Container>
           <div className={style.loginWraper}>
-            <div className={style.loginLeft}></div>
+            {/* <div className={style.loginLeft}></div> */}
             <div className={style.loginRight}>
               <form
                 className={style.loginForm}
