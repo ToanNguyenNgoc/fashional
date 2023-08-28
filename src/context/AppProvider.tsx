@@ -12,6 +12,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     state.getProfile,
     state.profile,
   ]);
+
   useEffect(() => {
     getProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps

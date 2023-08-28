@@ -4,6 +4,7 @@ import { IPage } from "@/interfaces/page.type";
 export interface IQrtag extends IPage {
   includes?: string;
   status?: boolean;
+  type?: string;
 }
 export interface ITag {
   categories: ICategories[];
