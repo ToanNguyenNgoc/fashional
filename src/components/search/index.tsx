@@ -6,6 +6,7 @@ import style from "./style.module.css";
 import Drawer from "@mui/material/Drawer";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import Link from "next/link";
+import { useMediaQuery } from "@mui/material";
 
 interface IProps {
   open: boolean;
@@ -15,20 +16,21 @@ interface IProps {
 export default function Search(props: IProps) {
   const { open, setOpen } = props;
   const [value, setValue] = useState<string>("");
+  const IS_MB = useMediaQuery("(max-width:767px)");
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   return (
     <>
-      <Drawer anchor={"top"} open={open} onClose={() => setOpen(false)}>
+      <Drawer anchor={"right"} open={open} onClose={() => setOpen(false)}>
         <div className={style.searchBox}>
           <div className={style.searchWrap}>
             <div className={style.searchLogo}>
               <Image
                 src={imgs.logoBlack}
-                width={40}
-                height={40}
-                alt="Picture of the author"
+                width={IS_MB ? 30 : 40}
+                height={IS_MB ? 30 : 40}
+                alt="Logo"
               />
             </div>
 
@@ -37,6 +39,7 @@ export default function Search(props: IProps) {
                 <BiSearch size={24} />
               </div>
               <input
+                autoFocus
                 value={value}
                 onChange={handleChange}
                 type="text"
@@ -50,7 +53,7 @@ export default function Search(props: IProps) {
             </div>
 
             <div onClick={() => setOpen(false)} className={style.searchClose}>
-              <p>Cancel</p>
+              <p>Đóng</p>
             </div>
           </div>
           {/* result */}

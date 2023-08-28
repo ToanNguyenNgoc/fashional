@@ -101,7 +101,7 @@ const MenuMB: React.FC = () => {
                   <div className={style.userImage}>
                     <Avatar
                       alt={profile?.fullname}
-                      sx={{ width: 24, height: 24 }}
+                      sx={{ width: 30, height: 30 }}
                       src={profile?.avatar}
                     ></Avatar>
                     <p>Hi, {profile?.fullname}</p>
