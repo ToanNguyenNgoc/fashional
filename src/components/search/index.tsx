@@ -22,7 +22,11 @@ export default function Search(props: IProps) {
   };
   return (
     <>
-      <Drawer anchor={"right"} open={open} onClose={() => setOpen(false)}>
+      <Drawer
+        anchor={IS_MB ? "right" : "top"}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
         <div className={style.searchBox}>
           <div className={style.searchWrap}>
             <div className={style.searchLogo}>
@@ -53,7 +57,9 @@ export default function Search(props: IProps) {
             </div>
 
             <div onClick={() => setOpen(false)} className={style.searchClose}>
-              <p>Đóng</p>
+              <div className={style.icon}>
+                <GrClose size={24} />
+              </div>
             </div>
           </div>
           {/* result */}

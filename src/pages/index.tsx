@@ -1,14 +1,25 @@
 import { NextPageWithLayout } from "@/common";
 import { Seo } from "@/components";
+import { HomeBanner } from "@/components/page/home";
 import { MainLayout } from "@/layouts";
-import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
 
 const Home: NextPageWithLayout = (props) => {
   return (
     <>
-      <Seo />
-      <main>Home page</main>
+      <Seo
+        title="Lil shop online fashional"
+        description="Trang chủ Lil Shop"
+        url=""
+      />
+      <main>
+        <HomeBanner />
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis harum
+          voluptatum ab est, dignissimos odio laborum minima tempora
+          voluptatibus incidunt sint non sed molestiae ipsum tempore, totam
+          voluptate aspernatur praesentium?*300
+        </div>
+      </main>
     </>
   );
 };

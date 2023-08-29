@@ -76,12 +76,59 @@
   cursor: pointer;
   text-decoration: underline;
 }
-
+.wrapInput button {
+  box-shadow: none;
+  line-height: 1.5;
+}
+.verify {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  gap: 36px;
+  flex-direction: column;
+  justify-content: center;
+}
+.verifyImg img {
+  margin: 0 auto;
+}
+.verifyTitle {
+  font-size: 24px;
+}
+.verifyDesc p a {
+  text-decoration: underline;
+}
 @media screen and (max-width: 1023.98px) {
 }
 
 @media screen and (max-width: 767.98px) {
   .loginRight {
     width: 100%;
+  }
+  .loginWraper {
+    height: 100%;
+    margin-top: 100px;
+    min-height: auto;
+  }
+  .textErr {
+    font-size: 12px;
+  }
+  .input,
+  .wrapInput button {
+    padding: 14px 20px;
+    text-transform: none;
+  }
+  .loginTitle {
+    font-size: 24px;
+  }
+  .wrapInput button {
+    font-family: "Helvetica", Courier, monospace !important;
+    font-size: 14px;
+  }
+  .formCheckbox {
+    gap: 6px;
+  }
+  .loginForm {
+    width: 90%;
   }
 }

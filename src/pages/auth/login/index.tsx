@@ -1,31 +1,29 @@
+import { NextPageWithLayout } from "@/common";
 import { AlertNoti } from "@/components";
+import { baseURL } from "@/configs";
 import { useAlert } from "@/hooks/useAlert";
+import { ILogin } from "@/interfaces/index.type";
+import { MainLayout, SignLayout } from "@/layouts";
 import { authApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
 import { validate } from "@/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { LoadingButton } from "@mui/lab";
+import { Container, useMediaQuery } from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
 import Cookies from "js-cookie";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
-import { LoadingButton } from "@mui/lab";
-import { Container } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "next/link";
-import { baseURL } from "@/configs";
-import { FcGoogle } from "react-icons/fc";
-import { NextPageWithLayout } from "@/common";
-import { ILogin } from "@/interfaces/index.type";
-import { MainLayout } from "@/layouts";
-import Image from "next/image";
-import { imgs } from "@/assets/imgs";
 
 const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
-
+  const IS_MB = useMediaQuery("(max-width:767px)");
   const { resultLoad, onCloseNoti, noti } = useAlert();
 
   const getProfile = useProfileStore(
@@ -150,7 +148,7 @@ const LoginPage: NextPageWithLayout = () => {
                   type="submit"
                   style={{
                     backgroundColor: "var(--primary)",
-                    padding: "18px 14px",
+                    padding: IS_MB ? "13px 20px" : "20px 14px",
                     width: "100%",
                     borderRadius: "8px",
                     fontWeight: "bold",
@@ -166,7 +164,7 @@ const LoginPage: NextPageWithLayout = () => {
                 <LoadingButton
                   style={{
                     border: "2px solid var(--primary)",
-                    padding: "16px 14px",
+                    padding: IS_MB ? "10px 20px" : "14px 14px",
                     width: "100%",
                     backgroundColor: "transparent",
                     borderRadius: "8px",
@@ -177,8 +175,11 @@ const LoginPage: NextPageWithLayout = () => {
                   variant="contained"
                   onClick={() => onLoginSocial("/auth/login/google")}
                 >
-                  <FcGoogle style={{ marginRight: "8px" }} size={29} />
-                  Đăng nhập với google
+                  <FcGoogle
+                    style={{ marginRight: "8px" }}
+                    size={IS_MB ? 24 : 30}
+                  />
+                  Đăng nhập với Google
                 </LoadingButton>
               </div>
               <div className={style.wrapInput}>
@@ -194,5 +195,5 @@ const LoginPage: NextPageWithLayout = () => {
     </>
   );
 };
-LoginPage.Layout = MainLayout;
+LoginPage.Layout = SignLayout;
 export default LoginPage;

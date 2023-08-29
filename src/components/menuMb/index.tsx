@@ -6,7 +6,8 @@ import { Avatar } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { GrClose, GrMenu } from "react-icons/gr";
+import { GrClose, GrMenu, GrLogin, GrLogout } from "react-icons/gr";
+import { BiHelpCircle } from "react-icons/bi";
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
@@ -130,15 +131,44 @@ const MenuMB: React.FC = () => {
                   <MdOutlineArrowForwardIos size={18} />
                 </div>
               </li>
-              <li className={style.menuMBItem}>
+              <Link href="#" className={style.menuMBItem}>
                 <p className={style.menuItemTitle}>News</p>
-              </li>
-              <li className={style.menuMBItem}>
+              </Link>
+              <Link href="#" className={style.menuMBItem}>
                 <p className={style.menuItemTitle}>Contact</p>
-              </li>
-              <li className={style.menuMBItem}>
+              </Link>
+              <Link href="#" className={style.menuMBItem}>
                 <p className={style.menuItemTitle}>About</p>
-              </li>
+              </Link>
+              <hr />
+              {profile ? (
+                <div
+                  onClick={() => {
+                    setOpenMenu(false), logoutProfile();
+                  }}
+                  className={style.menuMBItemRow}
+                >
+                  <GrLogin style={{ transform: "rotate(180deg)" }} size={20} />
+                  <p className={style.menuItemTitle}>Logout</p>
+                </div>
+              ) : (
+                <Link
+                  onClick={() => setOpenMenu(false)}
+                  href="auth/login"
+                  className={style.menuMBItemRow}
+                >
+                  <GrLogin size={20} />
+                  <p className={style.menuItemTitle}>Login</p>
+                </Link>
+              )}
+              <Link
+                onClick={() => setOpenMenu(false)}
+                href="#"
+                className={style.menuMBItemRow}
+              >
+                <BiHelpCircle size={24} />
+                <p className={style.menuItemTitle}>Help</p>
+              </Link>
             </ul>
           </div>
           {/* close level 1 */}
@@ -188,12 +218,10 @@ const MenuMB: React.FC = () => {
                       className={style.menuMBItem}
                     >
                       <p className={style.menuItemTitle}>{item?.name}</p>
-                      {item?.categories.length > 0 ? (
+                      {item?.categories.length > 0 && (
                         <div className={style.arrIcon}>
                           <MdOutlineArrowForwardIos size={18} />
                         </div>
-                      ) : (
-                        <></>
                       )}
                     </li>
                   ))}
