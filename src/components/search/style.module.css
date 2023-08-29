@@ -67,6 +67,12 @@
 .searchResultItem:hover a {
   color: var(--text-gray);
 }
+.icon {
+  width: 24px;
+}
+.icon svg {
+  width: 100%;
+}
 
 @media screen and (max-width: 1023.98px) {
 }
@@ -85,5 +91,8 @@
   }
   .searchField {
     padding: 8px 16px;
+  }
+  .searchResultItem {
+    font-size: 14px;
   }
 }

@@ -13,10 +13,18 @@
 .closeItem svg {
   display: inline-block;
 }
+.menuListStep1 .userImage {
+  font-size: 16px;
+}
 .userImage {
   display: flex;
   align-items: center;
   gap: 14px;
+  font-size: 24px;
+}
+.userImage div {
+  border: 1px solid var(--gray-hover);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .arrIcon {
   margin-right: 3px;
@@ -54,11 +62,12 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-top: 31px;
+  margin-top: 34px;
   padding-bottom: 8px;
 }
 .menuBack p {
   text-transform: capitalize;
+  font-size: 16px;
 }
 .menuListStep1 {
   transform: translateX(0);
@@ -92,4 +101,9 @@
 .preHideright {
   transform: translateX(0px);
   transition: transform 0.25s;
+}
+.menuMBItemRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }

@@ -1,10 +1,15 @@
+import { NextPageWithLayout } from "@/common";
 import { AlertNoti } from "@/components";
 import { useAlert } from "@/hooks/useAlert";
+import { IForgot } from "@/interfaces/index.type";
+import { AxiosCusError } from "@/interfaces/res.type";
+import { SignLayout } from "@/layouts";
 import { authApi } from "@/services";
 import { validate } from "@/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoadingButton } from "@mui/lab";
-import { Container } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
+import _ from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
@@ -16,9 +21,6 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
-import { IForgot } from "@/interfaces/index.type";
-import { AxiosCusError } from "@/interfaces/res.type";
-import _ from "lodash";
 
 interface ResError {
   error: string;
@@ -26,7 +28,8 @@ interface ResError {
   statusCode: number;
 }
 
-const ForgotPage = () => {
+const ForgotPage: NextPageWithLayout = () => {
+  const IS_MB = useMediaQuery("(max-width:767px)");
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   const { resultLoad, onCloseNoti, noti } = useAlert();
   const router = useRouter();
@@ -188,7 +191,7 @@ const ForgotPage = () => {
                     type="submit"
                     style={{
                       backgroundColor: "var(--primary)",
-                      padding: "18px 14px",
+                      padding: IS_MB ? "12px 20px" : "20px 14px",
                       width: "100%",
                       borderRadius: "8px",
                       fontWeight: "bold",
@@ -217,4 +220,5 @@ const ForgotPage = () => {
     </>
   );
 };
+ForgotPage.Layout = SignLayout;
 export default ForgotPage;

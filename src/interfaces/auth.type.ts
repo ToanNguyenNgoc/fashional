@@ -8,6 +8,7 @@ export interface IRegister {
   telephone: string;
   email: string;
   password: string;
+  recaptcha: string;
 }
 
 export interface IForgot {

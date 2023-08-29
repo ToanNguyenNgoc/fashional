@@ -1,5 +1,4 @@
 import { imgs } from "@/assets/imgs";
-import Head from "next/head";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
 import Masonry from "@mui/lab/Masonry";
@@ -55,34 +54,6 @@ export default function Header() {
 
   return (
     <>
-      <Head>
-        <title>Lil Shop</title>
-        <meta name="description" content="Lil Shop" />
-        <meta name="keywords" content="Lil Shop" />
-        <meta name="author" content="Lil Shop" />
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-      </Head>
-
       {/* header */}
       <div className={style.header}>
         <div className={style.headerWrap}>
