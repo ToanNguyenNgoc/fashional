@@ -87,7 +87,7 @@ const RegisterPage: NextPageWithLayout = () => {
       });
       setTimeout(() => {
         router.push("/auth/login");
-      }, 1000);
+      }, 3000);
     },
     onError: (error) => {
       setRefreshReCaptcha((r) => !r);

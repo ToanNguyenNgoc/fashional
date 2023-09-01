@@ -8,3 +8,9 @@ export interface ICategories {
   tag_id: number;
   updated_at: string;
 }
+
+export interface ICategory {
+  id: number;
+  name: string;
+  name_slugify: string;
+}

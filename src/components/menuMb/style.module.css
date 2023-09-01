@@ -62,7 +62,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-top: 34px;
+  margin-top: 30px;
   padding-bottom: 8px;
 }
 .menuBack p {
@@ -72,15 +72,11 @@
 .menuListStep1 {
   transform: translateX(0);
   transition: transform 0.25s;
-}
-.menuListStep2 {
-  transform: translateX(320px);
-  transition: transform 0.25s;
-  position: absolute;
-  top: 36px;
   width: calc(100% - 48px);
+  position: absolute;
 }
-.menuListStep3 {
+.menuListStep3,
+.menuListStep2 {
   transform: translateX(320px);
   transition: transform 0.25s;
   position: absolute;
