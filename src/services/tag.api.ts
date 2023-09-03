@@ -1,6 +1,5 @@
 import { axiosConfig } from "@/configs";
-import { IResponseList } from "@/interfaces/res.type";
-import { IQrtag, ITag } from "@/interfaces/tags.type";
+import { IQrtag, IResponseList, ITag } from "@/interfaces/index.type";
 import axios from "axios";
 
 export const tagApi = {

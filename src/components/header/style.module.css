@@ -14,6 +14,8 @@
   padding: 0 48px;
   /* border-bottom: 1px solid var(--gray); */
   background-color: var(--white);
+  max-width: 1824px;
+  margin: 0 auto;
 }
 .menuDesktop {
   display: flex;
@@ -32,11 +34,15 @@
   padding: 0 15px;
   z-index: 2;
 }
-
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
 .menu:hover {
   border-bottom: 2px solid var(--primary);
 }
-.right {
+.headerRight {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,18 +57,18 @@
   background-color: var(--gray);
   border-radius: 100px;
   transition: var(--trans-liner);
-  width: 200px;
 }
 .search:hover,
-.cart:hover {
+.iconCustom:hover {
   background-color: var(--gray-hover);
   transition: var(--trans-liner);
 }
 .searchIcon,
-.menuIcon {
+.iconCustom {
   flex-shrink: 0;
+  cursor: pointer;
 }
-.cart {
+.iconCustom {
   padding: 8px;
   border-radius: 100px;
   transition: var(--trans-liner);
@@ -75,23 +81,17 @@
 .logo {
   animation: rotate 10s linear infinite;
 }
+.logoWrap {
+  width: max-content;
+}
 .logoWrap a {
   display: inline-block;
-}
-.user,
-.logo,
-.cart {
-  cursor: pointer;
-  flex-shrink: 0;
 }
 .menu:hover .subMenus {
   transform: scaleY(1);
   opacity: 1;
   visibility: visible;
   transition: transform 0.25s ease, opacity 0ms, visibility 0ms;
-}
-.logoWrap {
-  width: 345px;
 }
 .subMenus {
   cursor: default;
@@ -117,11 +117,12 @@
 .subMenusWrap {
   max-width: 1200px;
   width: 100%;
-  padding: 0 25px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  padding-left: 120.5px;
+  /* padding: 0 25px; */
+  /* margin: 0 auto; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-evenly; */
 }
 .subMenu {
   opacity: 0;
@@ -142,12 +143,15 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 .userWrap {
   position: relative;
   height: 100%;
   display: flex;
   align-items: center;
+  padding-left: 4px;
 }
 .userWrap:hover .userDropWrap {
   opacity: 1;

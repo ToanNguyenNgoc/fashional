@@ -1,24 +1,23 @@
 import { NextPageWithLayout } from "@/common";
 import { Seo } from "@/components";
-import { HomeBanner } from "@/components/page/home";
+import { HomeBanner, HomeNewArrivals } from "@/components/page/home";
 import { MainLayout } from "@/layouts";
+import style from "../styles/Home.module.css";
+import { Container } from "@mui/material";
 
 const Home: NextPageWithLayout = (props) => {
   return (
     <>
       <Seo
-        title="Lil shop online fashional"
+        title="LILSHOP Online Shop"
         description="Trang chủ Lil Shop"
         url=""
       />
       <main>
         <HomeBanner />
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis harum
-          voluptatum ab est, dignissimos odio laborum minima tempora
-          voluptatibus incidunt sint non sed molestiae ipsum tempore, totam
-          voluptate aspernatur praesentium?*300
-        </div>
+        <Container>
+          <HomeNewArrivals />
+        </Container>
       </main>
     </>
   );

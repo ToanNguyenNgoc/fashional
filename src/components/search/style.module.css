@@ -29,6 +29,7 @@
   flex-shrink: 0;
 }
 .closeIcon,
+.userIcon,
 .searchClose {
   cursor: pointer;
 }
@@ -91,8 +92,12 @@
   }
   .searchField {
     padding: 8px 16px;
+    width: 100%;
   }
   .searchResultItem {
     font-size: 14px;
+  }
+  .searchResult {
+    padding: 24px 0;
   }
 }

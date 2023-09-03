@@ -17,3 +17,9 @@ export interface ITag {
   updated_at: string;
   created_at: string;
 }
+
+export interface ITagLittle {
+  id: number;
+  name: string;
+  name_slugify: string;
+}

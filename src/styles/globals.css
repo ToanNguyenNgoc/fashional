@@ -58,7 +58,7 @@ body {
   line-height: 1;
   margin: 0;
   font-family: "Helvetica", Courier, monospace;
-  background-color: var(--gray);
+  /* background-color: var(--gray); */
 }
 /* body > div {
   padding-top: 64px;
@@ -74,6 +74,11 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* disable scroll drawer */
+.MuiPaper-root.MuiDrawer-paper {
+  overflow-x: hidden;
 }
 
 @keyframes rotate {

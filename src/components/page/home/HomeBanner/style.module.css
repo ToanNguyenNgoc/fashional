@@ -1,0 +1,9 @@
+.homeBanner {
+  margin-top: 64px;
+}
+.HomeBannerImg {
+  width: 100%;
+  height: 500px;
+  max-height: 100vh;
+  position: relative;
+}
