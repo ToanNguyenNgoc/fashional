@@ -1,10 +1,10 @@
 .mainLayout {
-  max-width: 1824px;
+  max-width: 1920px;
   width: auto;
   margin: 0 auto;
 }
 @media only screen and (min-width: 960px) {
   .mainLayout {
-    padding: 0 48px;
+    padding: 48px 48px 68px 48px;
   }
 }

@@ -13,7 +13,7 @@ interface IProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Search(props: IProps) {
+export function Search(props: IProps) {
   const { open, setOpen } = props;
   const [value, setValue] = useState<string>("");
   const IS_MB = useMediaQuery("(max-width:767px)");

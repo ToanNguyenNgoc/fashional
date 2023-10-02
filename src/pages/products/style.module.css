@@ -1,0 +1,65 @@
+.products {
+  margin-top: 84px;
+  position: relative;
+}
+.headProduct {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  right: 0;
+  left: 0;
+  top: 64px;
+  padding: 8px 0;
+  z-index: 2;
+  background-color: var(--white);
+}
+.headRight,
+.headRightRow {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  cursor: pointer;
+}
+.headRightRow {
+  gap: 8px;
+}
+.headTitle {
+  font-size: 24px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.productsWrap {
+  display: flex;
+  height: 100%;
+  margin-top: 48px;
+  width: 100%;
+  position: relative;
+}
+.productsLeft {
+  width: 20%;
+  height: max-content;
+  position: sticky;
+  top: 148px;
+  left: 0;
+  overflow-y: scroll;
+}
+.productsRight {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px 30px;
+}
+.productLeftCate {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ccc;
+}
+.productLeftCate li {
+  text-transform: capitalize;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}

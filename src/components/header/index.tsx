@@ -1,3 +1,4 @@
+import { Dispatch, FC, SetStateAction, useRef, useState } from "react";
 import { imgs } from "@/assets/imgs";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
@@ -9,22 +10,18 @@ import { BiCart, BiSearch, BiUser, BiHeart } from "react-icons/bi";
 import style from "./style.module.css";
 import { useQuery } from "react-query";
 import { tagApi } from "@/services/tag.api";
-
-import { useState } from "react";
-import Search from "@/components/search";
-import MenuMB from "@/components/menuMb";
-import { ICategories, IQrtag, ITag } from "@/interfaces/index.type";
+import {
+  ICategories,
+  IQrtag,
+  IResponseList,
+  ITag,
+} from "@/interfaces/index.type";
+import { MenuMB, Search } from "@/components";
 
 export default function Header() {
   const IS_MB = useMediaQuery("(max-width:767px)");
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [openSearch, setOpenSearch] = useState<boolean>(false);
-  const handleMouseEnter = () => {
-    setIsOverlayActive(true);
-  };
-  const handleMouseLeave = () => {
-    setIsOverlayActive(false);
-  };
 
   const [profile, logoutProfile] = useProfileStore((state: IProfileState) => [
     state.profile,
@@ -72,75 +69,19 @@ export default function Header() {
             {/* menu */}
             <nav>
               <ul className={style.menuDesktop}>
-                <li
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  className={style.menu}
-                >
-                  <Link href="#">Shop</Link>
-                  <div className={style.subMenus}>
-                    <ul className={style.subMenusWrap}>
-                      {tagsShop && (
-                        <Masonry columns={4} spacing={3}>
-                          {tagsShop?.context?.data?.map((item: ITag) => (
-                            <li key={item.id} className={style.subMenu}>
-                              {item.name}
-                              <ul className={style.subMemuList}>
-                                {item?.categories?.map((item: ICategories) => (
-                                  <li
-                                    className={style.subMemuItem}
-                                    key={item.id}
-                                  >
-                                    {item?.name}
-                                  </li>
-                                ))}
-                              </ul>
-                            </li>
-                          ))}
-                        </Masonry>
-                      )}
-                    </ul>
-                  </div>
-                </li>
-                <li
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  className={style.menu}
-                >
-                  <Link href="#">Collabs</Link>
-                  <div className={style.subMenus}>
-                    <ul className={style.subMenusWrap}>
-                      {tagsCollab && (
-                        <Masonry columns={4} spacing={2}>
-                          {tagsCollab?.context?.data?.map((item: ITag) => (
-                            <li key={item.id} className={style.subMenu}>
-                              {item.name}
-                              <ul className={style.subMemuList}>
-                                {item?.categories?.map((item: ICategories) => (
-                                  <li
-                                    className={style.subMemuItem}
-                                    key={item.id}
-                                  >
-                                    {item?.name}
-                                  </li>
-                                ))}
-                              </ul>
-                            </li>
-                          ))}
-                        </Masonry>
-                      )}
-                    </ul>
-                  </div>
-                </li>
-                <li
-                  // onMouseEnter={handleMouseEnter}
-                  // onMouseLeave={handleMouseLeave}
-                  className={style.menu}
-                >
-                  News
-                </li>
-                <li className={style.menu}>Contact</li>
-                <li className={style.menu}>About</li>
+                <SubMenu
+                  menuType={"Shop"}
+                  tags={tagsShop}
+                  setIsOverlayActive={setIsOverlayActive}
+                />
+                <SubMenu
+                  menuType={"Collab"}
+                  tags={tagsCollab}
+                  setIsOverlayActive={setIsOverlayActive}
+                />
+                <SubMenu menuType={"News"} />
+                <SubMenu menuType={"Contact"} />
+                <SubMenu menuType={"About"} />
               </ul>
             </nav>
             {/* close menu */}
@@ -214,6 +155,70 @@ export default function Header() {
         className={`${style.overlay} ${isOverlayActive ? style.isOpen : ""}`}
       ></div>
       {/* close overlay */}
+    </>
+  );
+}
+
+interface ISubMenu {
+  setIsOverlayActive?: Dispatch<SetStateAction<boolean>>;
+  menuType: string;
+  tags?: IResponseList<ITag[]>;
+}
+
+export function SubMenu(props: ISubMenu) {
+  const { setIsOverlayActive, menuType, tags } = props;
+  const refMenu = useRef<any>(null);
+
+  const handleMouseEnter = () => {
+    setIsOverlayActive && setIsOverlayActive(true);
+    refMenu?.current?.classList.add(style.act_subMenus);
+  };
+  const handleMouseLeave = () => {
+    setIsOverlayActive && setIsOverlayActive(false);
+    refMenu?.current?.classList.remove(style.act_subMenus);
+  };
+  return (
+    <>
+      <li
+        ref={refMenu}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={style.menu}
+      >
+        <Link
+          href={tags ? `/danh-sach-san-pham?type=${menuType}` : `${menuType}`}
+        >
+          {menuType}
+        </Link>
+        {tags && (
+          <div className={style.subMenus}>
+            <ul className={style.subMenusWrap}>
+              <Masonry columns={4} spacing={3}>
+                {tags?.context?.data.map((tag: ITag) => (
+                  <li key={tag.id} className={style.subMenu}>
+                    <Link
+                      href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}`}
+                    >
+                      {tag.name}
+                    </Link>
+                    <ul className={style.subMemuList}>
+                      {tag?.categories?.map((category: ICategories) => (
+                        <li className={style.subMemuItem} key={category.id}>
+                          <Link
+                            href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}&category=${category.name}`}
+                          >
+                            {category.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </Masonry>
+            </ul>
+          </div>
+        )}
+      </li>
     </>
   );
 }

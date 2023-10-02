@@ -1,6 +1,6 @@
 .header {
   position: relative;
-  z-index: 2;
+  z-index: 4;
 }
 .headerWrap {
   display: flex;
@@ -14,7 +14,7 @@
   padding: 0 48px;
   /* border-bottom: 1px solid var(--gray); */
   background-color: var(--white);
-  max-width: 1824px;
+  max-width: 1920px;
   margin: 0 auto;
 }
 .menuDesktop {
@@ -33,6 +33,11 @@
   align-items: center;
   padding: 0 15px;
   z-index: 2;
+}
+.menu > a {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 .headerLeft {
   display: flex;
@@ -87,11 +92,10 @@
 .logoWrap a {
   display: inline-block;
 }
-.menu:hover .subMenus {
-  transform: scaleY(1);
-  opacity: 1;
-  visibility: visible;
-  transition: transform 0.25s ease, opacity 0ms, visibility 0ms;
+.subMenusWrap {
+  max-width: 1200px;
+  width: 100%;
+  padding-left: 120.5px;
 }
 .subMenus {
   cursor: default;
@@ -104,8 +108,8 @@
   top: 64px;
   left: 0;
   right: 0;
-  transition: transform 0.1s ease, opacity 0ms linear 0.1s,
-    visibility 0ms linear 0.1s;
+  /* transition: transform 0.1s ease, opacity 0ms linear 0.1s,
+    visibility 0ms linear 0.1s; */
   transform-origin: top center;
   transform: scaleY(0);
   background-color: var(--white);
@@ -114,30 +118,30 @@
   display: flex;
   z-index: 2;
 }
-.subMenusWrap {
-  max-width: 1200px;
-  width: 100%;
-  padding-left: 120.5px;
-  /* padding: 0 25px; */
-  /* margin: 0 auto; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-evenly; */
-}
 .subMenu {
+  display: inline-block;
   opacity: 0;
   transform: translateY(-10px);
-  transition: transform 0s, opacity 0s;
+  transition: transform 0.1s, opacity 0.1s;
   transition-delay: 0s;
   cursor: pointer;
   text-transform: capitalize;
-  /* text-align: center; */
 }
+.menu:hover .subMenus {
+  transform: scaleY(1);
+  opacity: 1;
+  visibility: visible;
+  /* transition: transform 0.25s ease, opacity 0ms, visibility 0ms; */
+}
+
 .menu:hover .subMenu {
   opacity: 1;
   transform: translateY(0);
   transition: transform 0.3s ease, opacity 0.2s linear;
   transition-delay: 0.2s;
+}
+.menu.act_subMenus .subMenus {
+  transition: none;
 }
 .user {
   display: flex;
@@ -195,17 +199,17 @@
   flex-direction: column;
   gap: 14px;
 }
-.subMemuItem {
+.subMemuItem a {
   color: var(--text-gray);
   font-size: 14px;
   cursor: pointer;
 }
-.subMemuItem:hover {
+.subMemuItem:hover a {
   color: var(--primary);
 }
 .overlay {
   opacity: 0;
-  z-index: 1;
+  z-index: 3;
   visibility: hidden;
   display: block;
   position: fixed;

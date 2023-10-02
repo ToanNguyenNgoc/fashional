@@ -7,16 +7,16 @@ module.exports = {
   images: {
     domains: ["api.fashional.pro", "admin.fashional.pro"],
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/danh-sach-villa",
-  //       destination: "/villas",
-  //     },
-  //     {
-  //       source: "/danh-sach-villa/:id",
-  //       destination: "/villas/:id",
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      {
+        source: "/danh-sach-san-pham",
+        destination: "/products",
+      },
+      {
+        source: "/san-pham/:id",
+        destination: "/products/:id",
+      },
+    ];
+  },
 };

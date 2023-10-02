@@ -1,0 +1,84 @@
+.proItemImg {
+  width: 100%;
+  height: 300px;
+  padding: 14px;
+}
+.proItemImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.proItem {
+  background-color: #fefefe;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+}
+.proItemTags {
+  position: absolute;
+  top: -14px;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.proItemTag {
+  padding: 4px 8px;
+  background-color: var(--primary);
+  width: max-content;
+  text-align: center;
+  color: var(--white);
+  font-size: 12px;
+  text-transform: capitalize;
+}
+.proItemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex-shrink: 0;
+  flex: 1;
+}
+.proItemName {
+  line-height: 1.5;
+}
+.proItemPrice {
+  margin-top: auto;
+}
+.proItemWrapPrice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+.proItemPriceActive {
+  font-size: 18px;
+  font-weight: bold;
+}
+.proItemWrapPrice p:nth-child(2) {
+  text-decoration: line-through;
+  font-size: 14px;
+  color: gray;
+}
+
+@media screen and (max-width: 767.98px) {
+  .proItemImg {
+    height: 200px;
+  }
+  .arrivalsTitle {
+    font-size: 18px;
+  }
+  .proItemPriceActive {
+    font-size: 16px;
+  }
+  .proItemWrapPrice p:nth-child(2) {
+    font-size: 12px;
+  }
+  .proItemContent {
+    gap: 12px;
+  }
+  .proItemTags {
+    gap: 4px;
+  }
+}

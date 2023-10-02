@@ -15,7 +15,7 @@ import {
 import { useQuery } from "react-query";
 import style from "./style.module.css";
 
-const MenuMB: React.FC = () => {
+export const MenuMB: React.FC = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [categories, setCategories] = useState<ITag>();
   const [tags, setTags] = useState<ITag[]>([]);
@@ -252,5 +252,3 @@ const MenuMB: React.FC = () => {
     </>
   );
 };
-
-export default MenuMB;
