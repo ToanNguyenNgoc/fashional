@@ -26,7 +26,7 @@ const Home: NextPageWithLayout = (props) => {
       id: 4,
       img: "https://cdn.sanity.io/images/qa41whrn/staging/fb5f6315d798c25397cecc0acfc7149365be5726-1536x1536.jpg",
     },
-  ];
+  ] as any;
   const fakeData2 = [
     {
       id: 1,
@@ -36,7 +36,7 @@ const Home: NextPageWithLayout = (props) => {
       id: 2,
       img: "https://cdn.sanity.io/images/qa41whrn/staging/78f5a314417409769381ca41efab48442ec9439f-1536x1536.jpg",
     },
-  ];
+  ] as any;
   return (
     <>
       <Seo
