@@ -3,7 +3,7 @@ import { AlertNoti } from "@/components";
 import { baseURL } from "@/configs";
 import { useAlert } from "@/hooks/useAlert";
 import { ILogin } from "@/interfaces/index.type";
-import { MainLayout, SignLayout } from "@/layouts";
+import { SignLayout } from "@/layouts";
 import { authApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";

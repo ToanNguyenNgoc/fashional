@@ -1,0 +1,121 @@
+.HomeCategoryImg {
+  margin-top: 48px;
+}
+.homeCateTitle {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 48px;
+}
+.homeCateList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.homeCateListTrans {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+.homeCateListTrans .homeCateItemTitle span {
+  font-size: 24px;
+}
+.homeCateItem {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+}
+.homeCateItemImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.homeCateItemTitle {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+}
+.overlay_img{
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: multiply;
+    background: linear-gradient( var(--media-vignette-angle), rgba(0, 0, 0, var(--grad-start)) 0%, rgba(0, 0, 0, var(--grad-end)) var(--grad-spread) );
+    display: block;
+    --media-vignette-angle: 0deg;
+    --grad-start: 0.45;
+    --grad-end: 0;
+    --grad-spread: 60%;
+}
+.homeCateItemTitle span {
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+@media screen and (max-width: 1023.98px) and (min-width: 768px) {
+  .homeCateList {
+    display: grid;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    grid-template-columns: repeat(4, calc(33.3333% - 0.666667rem));
+  }
+  .homeCateItemTitle {
+    padding-right: 20px;
+  }
+  .homeCateList::-webkit-scrollbar {
+    appearance: none;
+    width: 6px;
+    height: 6px;
+  }
+  .homeCateList::-webkit-scrollbar-thumb {
+    background-color: rgb(80, 86, 94);
+    border-radius: 6px;
+  }
+  .homeCateItem {
+    scroll-snap-align: start;
+  }
+  .homeCateItemTitle span {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 767.98px) {
+  .homeCateList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .homeCateListTrans .homeCateItemTitle span {
+    font-size: 14px;
+  }
+  .homeCateItemTitle {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    padding-right: 12px;
+  }
+  .homeCateItemTitle span {
+    line-height: 1.3;
+    font-size: 15px;
+    font-weight: 600;
+    -webkit-line-clamp: 2;
+  }
+  .homeCateTitle {
+    margin-bottom: 24px;
+    font-size: 28px;
+  }
+  .homeCateList {
+    gap: 16px;
+  }
+}
