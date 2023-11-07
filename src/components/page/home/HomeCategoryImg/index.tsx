@@ -3,9 +3,10 @@ import style from "./style.module.css";
 import Image from "next/image";
 import { useMediaQuery } from "@mui/material";
 interface IProps{
-  id: number;
+  id?: number;
   title?: string;
   img?: string;
+  fakeData:any
 }
 export const HomeCategoryImg = (props: IProps) => {
   const { fakeData } = props;
