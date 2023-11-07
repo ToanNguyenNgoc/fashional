@@ -19,7 +19,7 @@ import {
 import { MenuMB, Search } from "@/components";
 
 export default function Header() {
-  const IS_MB = useMediaQuery("(max-width:767px)");
+  const IS_MB = useMediaQuery("(max-width:1023px)");
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [openSearch, setOpenSearch] = useState<boolean>(false);
 
@@ -27,7 +27,6 @@ export default function Header() {
     state.profile,
     state.logoutProfile,
   ]);
-
   const params: IQrtag = {
     includes: "categories",
     status: true,

@@ -5,7 +5,12 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ["api.fashional.pro", "admin.fashional.pro"],
+    domains: [
+      "api.fashional.pro",
+      "admin.fashional.pro",
+      "source.unsplash.com",
+      "cdn.sanity.io",
+    ],
   },
   async rewrites() {
     return [

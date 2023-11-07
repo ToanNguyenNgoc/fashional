@@ -105,7 +105,7 @@ export const MenuMB: React.FC = () => {
                       sx={{ width: 30, height: 30 }}
                       src={profile?.avatar}
                     ></Avatar>
-                    <p>Hi, {profile?.fullname}</p>
+                    <p className={style.userName}>Hi, {profile?.fullname}</p>
                   </div>
                   <div className={style.arrIcon}>
                     <MdOutlineArrowForwardIos size={18} />
@@ -189,7 +189,7 @@ export const MenuMB: React.FC = () => {
                         sx={{ width: 36, height: 36 }}
                         src={profile?.avatar}
                       ></Avatar>
-                      <p>Hi, {profile?.fullname}</p>
+                      <p className={style.userName}>Hi, {profile?.fullname}</p>
                     </div>
                   </li>
                   <li className={style.menuMBItem}>
