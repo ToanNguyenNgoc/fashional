@@ -1,7 +1,4 @@
 .mainLayout {
-  max-width: 1920px;
-  width: auto;
-  margin: 0 auto;
   padding: 64px 0;
 }
 @media screen and (max-width: 1023.98px) {

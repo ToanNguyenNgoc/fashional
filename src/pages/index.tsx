@@ -46,7 +46,7 @@ const Home: NextPageWithLayout = (props) => {
       />
       <main>
         <HomeBanner />
-        <Container>
+        <Container maxWidth={false} sx={{ maxWidth: "1440px" }}>
           <HomeCategoryImg fakeData={fakeData2} />
           <HomeCategoryImg fakeData={fakeData1} />
           <HomeNewArrivals />

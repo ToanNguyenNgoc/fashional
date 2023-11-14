@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import style from "./style.module.css";
 import ButtonCustom from "@/components/button";
-import { useMediaQuery } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 export const HomeBanner: FC = () => {
   const IS_MB = useMediaQuery("(max-width:767px)");

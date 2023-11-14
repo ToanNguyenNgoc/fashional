@@ -1,12 +1,11 @@
-import React, { FC } from "react";
-import style from "./style.module.css";
-import Image from "next/image";
 import { useMediaQuery } from "@mui/material";
-interface IProps{
+import Image from "next/image";
+import style from "./style.module.css";
+interface IProps {
   id?: number;
   title?: string;
   img?: string;
-  fakeData:any
+  fakeData: any;
 }
 export const HomeCategoryImg = (props: IProps) => {
   const { fakeData } = props;
@@ -24,7 +23,7 @@ export const HomeCategoryImg = (props: IProps) => {
           fakeData.length === 2 ? style.homeCateListTrans : ""
         }`}
       >
-        {fakeData.slice(0, 4).map((item:any, index:number) => (
+        {fakeData.slice(0, 4).map((item: any, index: number) => (
           <div className={style.homeCateItem} key={index}>
             <Image
               fill={true}

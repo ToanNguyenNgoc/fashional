@@ -1,0 +1,18 @@
+.card{
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-1);
+  background-color: var(--white);
+}
+.card_head{
+  border-bottom: 1px solid var(--border-gray);
+  padding: 16px 24px;
+}
+.card_head p {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+.card_body{
+  padding: 24px;
+}

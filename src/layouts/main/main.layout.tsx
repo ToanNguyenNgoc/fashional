@@ -7,7 +7,7 @@ export function MainLayout({ children }: LayoutProps) {
   return (
     <>
       <Header />
-      <div className={style.mainLayout}>{children}</div>
+        <div className={style.mainLayout}>{children}</div>
       <Footer />
     </>
   );

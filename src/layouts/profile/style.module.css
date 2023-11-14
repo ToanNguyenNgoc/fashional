@@ -1,0 +1,92 @@
+.profile_page {
+  background-color: var(--bg-gray);
+}
+.profile {
+  max-width: 976px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 88px 0 24px 0;
+  display: flex;
+  gap: 24px;
+}
+.profile_left {
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-1);
+  background-color: var(--white);
+}
+.profile_left {
+  width: 33.33%;
+}
+.profile_right {
+  width: 66.66%;
+}
+.profile_head_wrap {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.form_ava {
+  width: 128px;
+  height: 128px;
+  min-width: 128px;
+  min-height: 128px;
+  position: relative;
+  cursor: pointer;
+}
+.form_ava img {
+  border-radius: 100px;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.form_edit {
+  position: absolute;
+  z-index: 2;
+  background-color: var(--primary);
+  padding: 4px;
+  border-radius: 100px;
+  right: 0px;
+  bottom: 0;
+  border: 2px solid var(--white);
+  margin: 2px;
+}
+.profile_left_head {
+  border-bottom: 1px solid var(--border-gray);
+}
+.form_name_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form_name_box > p {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+.profile_left_tablist {
+  padding: 0 0 14px 0;
+}
+.profile_left_tabItem,
+.active_tab {
+  padding: 14px 24px;
+  cursor: pointer;
+}
+.profile_left_tabItem:hover{
+  background-color: var(--bg-gray);
+}
+.profile_left_tabItem span {
+  font-weight: 500;
+}
+.active_tab {
+  background-color: var(--primary);  
+  padding: 14px 24px;
+}
+.active_tab span {
+  font-weight: 500;
+  color: var(--white)
+}

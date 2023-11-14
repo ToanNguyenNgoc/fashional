@@ -3,7 +3,7 @@ import { imgs } from "@/assets/imgs";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand/useProfileStore";
 import Masonry from "@mui/lab/Masonry";
-import { Avatar, useMediaQuery } from "@mui/material";
+import { Avatar, Container, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { BiCart, BiSearch, BiUser, BiHeart } from "react-icons/bi";
@@ -53,93 +53,100 @@ export default function Header() {
       {/* header */}
       <div className={style.header}>
         <div className={style.headerWrap}>
-          {/* left */}
-          <div className={style.headerLeft}>
-            <div className={style.logoWrap}>
-              <Link href="/" className={style.logo}>
-                <Image
-                  src={imgs.logoBlack}
-                  width={IS_MB ? 30 : 40}
-                  height={IS_MB ? 30 : 40}
-                  alt="Logo"
-                />
-              </Link>
-            </div>
-            {/* menu */}
-            <nav>
-              <ul className={style.menuDesktop}>
-                <SubMenu
-                  menuType={"Shop"}
-                  tags={tagsShop}
-                  setIsOverlayActive={setIsOverlayActive}
-                />
-                <SubMenu
-                  menuType={"Collab"}
-                  tags={tagsCollab}
-                  setIsOverlayActive={setIsOverlayActive}
-                />
-                <SubMenu menuType={"News"} />
-                <SubMenu menuType={"Contact"} />
-                <SubMenu menuType={"About"} />
-              </ul>
-            </nav>
-            {/* close menu */}
-          </div>
-          {/* close left */}
-
-          {/* right */}
-          <div className={style.headerRight}>
-            <div onClick={() => setOpenSearch(true)} className={style.search}>
-              <div className={style.searchIcon}>
-                <BiSearch size={24} />
-              </div>
-              <input readOnly type="text" placeholder="Tìm kiếm" />
-            </div>
-            <div className={style.iconCustom}>
-              <BiHeart size={24} />
-            </div>
-            <div className={style.iconCustom}>
-              <BiCart size={24} />
-            </div>
-            {IS_MB ? (
-              <MenuMB />
-            ) : (
-              <>
-                {!profile ? (
-                  <Link href="auth/login">
-                    <div className={style.iconCustom}>
-                      <BiUser size={24} />
-                    </div>
+          <Container maxWidth={false} sx={{ maxWidth: "1440px", height: "100%"}}>
+            <div className={style.header_box}>
+              {/* left */}
+              <div className={style.headerLeft}>
+                <div className={style.logoWrap}>
+                  <Link href="/" className={style.logo}>
+                    <Image
+                      src={imgs.logoBlack}
+                      width={IS_MB ? 30 : 40}
+                      height={IS_MB ? 30 : 40}
+                      alt="Logo"
+                    />
                   </Link>
-                ) : (
-                  <div className={style.userWrap}>
-                    <Link href="profile" className={style.user}>
-                      Hi, {profile?.fullname}
-                      <Avatar
-                        alt={profile?.fullname}
-                        sx={{ width: 24, height: 24 }}
-                        src={profile?.avatar}
-                      ></Avatar>
-                    </Link>
-                    <div className={style.userDropWrap}>
-                      <ul className={style.userDrop}>
-                        <li className={style.userDropItem}>
-                          <Link href="profile">Tài khoản</Link>
-                        </li>
+                </div>
+                {/* menu */}
+                <nav>
+                  <ul className={style.menuDesktop}>
+                    <SubMenu
+                      menuType={"Shop"}
+                      tags={tagsShop}
+                      setIsOverlayActive={setIsOverlayActive}
+                    />
+                    <SubMenu
+                      menuType={"Collab"}
+                      tags={tagsCollab}
+                      setIsOverlayActive={setIsOverlayActive}
+                    />
+                    <SubMenu menuType={"News"} />
+                    <SubMenu menuType={"Contact"} />
+                    <SubMenu menuType={"About"} />
+                  </ul>
+                </nav>
+                {/* close menu */}
+              </div>
+              {/* close left */}
 
-                        <li
-                          onClick={() => logoutProfile()}
-                          className={style.userDropItem}
-                        >
-                          Đăng xuất
-                        </li>
-                      </ul>
-                    </div>
+              {/* right */}
+              <div className={style.headerRight}>
+                <div
+                  onClick={() => setOpenSearch(true)}
+                  className={style.search}
+                >
+                  <div className={style.searchIcon}>
+                    <BiSearch size={24} />
                   </div>
+                  <input readOnly type="text" placeholder="Tìm kiếm" />
+                </div>
+                <div className={style.iconCustom}>
+                  <BiHeart size={24} />
+                </div>
+                <div className={style.iconCustom}>
+                  <BiCart size={24} />
+                </div>
+                {IS_MB ? (
+                  <MenuMB />
+                ) : (
+                  <>
+                    {!profile ? (
+                      <Link href="auth/login">
+                        <div className={style.iconCustom}>
+                          <BiUser size={24} />
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className={style.userWrap}>
+                        <Link href="profile/edit-profile" className={style.user}>
+                          Hi, {profile?.fullname}
+                          <Avatar
+                            alt={profile?.fullname}
+                            sx={{ width: 24, height: 24 }}
+                            src={profile?.avatar}
+                          ></Avatar>
+                        </Link>
+                        <div className={style.userDropWrap}>
+                          <ul className={style.userDrop}>
+                            <li className={style.userDropItem}>
+                              <Link href="profile/edit-profile">Tài khoản</Link>
+                            </li>
+
+                            <li
+                              onClick={() => logoutProfile()}
+                              className={style.userDropItem}
+                            >
+                              Đăng xuất
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </div>
+              </div>
+            </div>
+          </Container>
           {/* close right */}
         </div>
       </div>
@@ -191,30 +198,32 @@ export function SubMenu(props: ISubMenu) {
         </Link>
         {tags && (
           <div className={style.subMenus}>
-            <ul className={style.subMenusWrap}>
-              <Masonry columns={4} spacing={3}>
-                {tags?.context?.data.map((tag: ITag) => (
-                  <li key={tag.id} className={style.subMenu}>
-                    <Link
-                      href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}`}
-                    >
-                      {tag.name}
-                    </Link>
-                    <ul className={style.subMemuList}>
-                      {tag?.categories?.map((category: ICategories) => (
-                        <li className={style.subMemuItem} key={category.id}>
-                          <Link
-                            href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}&category=${category.name}`}
-                          >
-                            {category.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </Masonry>
-            </ul>
+            <Container maxWidth={false} sx={{ maxWidth: "1440px" }}>
+              <ul className={style.subMenusWrap}>
+                <Masonry columns={4} spacing={3}>
+                  {tags?.context?.data.map((tag: ITag) => (
+                    <li key={tag.id} className={style.subMenu}>
+                      <Link
+                        href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}`}
+                      >
+                        {tag.name}
+                      </Link>
+                      <ul className={style.subMemuList}>
+                        {tag?.categories?.map((category: ICategories) => (
+                          <li className={style.subMemuItem} key={category.id}>
+                            <Link
+                              href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}&category=${category.name}`}
+                            >
+                              {category.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </Masonry>
+              </ul>
+            </Container>
           </div>
         )}
       </li>

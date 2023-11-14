@@ -22,6 +22,10 @@ module.exports = {
         source: "/san-pham/:id",
         destination: "/products/:id",
       },
+      {
+        source: "/profile/:slug",
+        destination: "/profile/:slug",
+      },
     ];
   },
 };

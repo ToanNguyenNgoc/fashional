@@ -5,5 +5,6 @@ export * from "./footer";
 export * from "./search";
 export * from "./menuMb";
 export * from "./button";
+export * from "./card";
 export * from "./productItem";
 export * from "./skeleton/index";

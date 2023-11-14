@@ -4,11 +4,12 @@ import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import Image from "next/image";
 import { imgs } from "@/assets/imgs";
+import { Container } from "@mui/material";
 
 export default function Footer() {
   return (
-    <>
-      <div className={style.footer}>
+    <div className={style.footer}>
+      <Container maxWidth={false} sx={{ maxWidth: "1440px" }}>
         <div className={style.footer_wrap}>
           <div className={style.footer_left}>
             <div className={style.footer_logos}>
@@ -63,7 +64,7 @@ export default function Footer() {
         <div className={style.footer_bottom}>
           <p>Copyright © 2023 | FutureDev. All right reserved.</p>
         </div>
-      </div>
-    </>
+      </Container>
+    </div>
   );
 }
