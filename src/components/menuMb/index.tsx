@@ -6,7 +6,7 @@ import { Avatar } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { GrClose, GrMenu, GrLogin, GrLogout } from "react-icons/gr";
+import { GrClose, GrMenu, GrLogin } from "react-icons/gr";
 import { BiHelpCircle } from "react-icons/bi";
 import {
   MdOutlineArrowBackIosNew,

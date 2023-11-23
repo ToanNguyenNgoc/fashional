@@ -1,0 +1,9 @@
+.address_create{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.address_create:hover{
+  text-decoration: underline;
+}

@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import style from "./style.module.css";
-import ButtonCustom from "@/components/button";
-import { Container, useMediaQuery } from "@mui/material";
+import { Button, Container, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 export const HomeBanner: FC = () => {
   const IS_MB = useMediaQuery("(max-width:767px)");
@@ -41,12 +40,9 @@ export const HomeBanner: FC = () => {
           <h2>Lorem ipsum dolor sit amet.</h2>
         </div>
         <div className={style.banner_content_btn}>
-          <ButtonCustom
-            fontWeight="bold"
-            fontSize={18}
-            size="LARGE"
-            text="shop now"
-          />
+          <Button color="secondary" size="large" variant="contained">
+            Shop Now
+          </Button>
         </div>
       </div>
     </div>

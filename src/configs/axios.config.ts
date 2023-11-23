@@ -25,7 +25,7 @@ axiosConfig.interceptors.request.use(async (config) => {
       const res = await axios.post(
         `${baseURL}auth/refresh`,
         {},
-        { withCredentials: true }
+        { withCredentials: true }   
       );
       const data = res.data;
       Cookies.set("token_expired_at", data.context.token_expired_at, {

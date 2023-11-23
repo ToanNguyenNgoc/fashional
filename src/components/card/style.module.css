@@ -16,3 +16,12 @@
 .card_body{
   padding: 24px;
 }
+@media screen and (max-width: 1023px) {
+
+}
+
+@media screen and (max-width: 767.98px) {
+  .card_head, .card_body{
+    padding: 16px;
+  }
+}

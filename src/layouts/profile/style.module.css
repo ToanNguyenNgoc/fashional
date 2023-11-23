@@ -11,15 +11,15 @@
 }
 .profile_left {
   height: 100%;
-  border-radius: 8px;
-  box-shadow: var(--box-shadow-1);
-  background-color: var(--white);
-}
-.profile_left {
   width: 33.33%;
 }
 .profile_right {
   width: 66.66%;
+}
+.profile_wrap {
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-1);
+  background-color: var(--white);
 }
 .profile_head_wrap {
   display: flex;
@@ -71,22 +71,101 @@
 .profile_left_tablist {
   padding: 0 0 14px 0;
 }
-.profile_left_tabItem,
-.active_tab {
+.profile_left_tabItem {
   padding: 14px 24px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-.profile_left_tabItem:hover{
+.profile_left_tabItem:hover {
   background-color: var(--bg-gray);
+}
+.profile_left_tabItem.active_tab:hover {
+  background-color: var(--primary);
+}
+.profile_left_tabItem.active_tab .tabItem_title svg,
+.profile_left_tabItem.active_tab svg {
+  color: #fff !important;
 }
 .profile_left_tabItem span {
   font-weight: 500;
 }
+.tabItem_title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .active_tab {
-  background-color: var(--primary);  
-  padding: 14px 24px;
+  background-color: var(--primary);
 }
 .active_tab span {
   font-weight: 500;
-  color: var(--white)
+  color: var(--white);
+}
+.btnGoback {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
+  width: max-content;
+}
+@media screen and (max-width: 1023.98px) {
+  .profile {
+    padding: 78px 0 24px 0;
+  }
+  .profile_page {
+    height: calc(100vh - 296.59px);
+  }
+  .profile_left{
+    width: 40%;
+  }
+  .profile_right {
+    width: 60%;
+  }
+  .profile_head_wrap{
+    padding: 16px;
+  }
+  .profile_left_tabItem{
+    padding: 16px;
+  }
+}
+@media screen and (max-width: 767.98px) {
+  .profile {
+    position: relative;
+    padding: 66px 0 16px;
+    overflow: hidden;
+  }
+  .profile_page {
+    height: 100%;
+  }
+  .profile_left,
+  .profile_right {
+    width: 100%;
+  }
+  .profile_left {
+    transform: translateX(0);
+    transition: transform 0.25s;
+  }
+  .profile_right {
+    position: absolute;
+    transform: translateX(calc(100% + 16px));
+    transition: transform 0.25s;
+  }
+  .profile_block {
+    transform: translateX(0);
+    transition: transform 0.25s;
+  }
+  .profile_hidden_right {
+    transform: translateX(calc(100% + 16px));
+    transition: transform 0.25s;
+  }
+  .profile_hidden_left {
+    transform: translateX(calc(-100% - 16px));
+    transition: transform 0.25s;
+  }
+  .profile_left_tablist a:not(:last-child) .profile_left_tabItem {
+    border-bottom: 1px solid var(--border-gray);
+  }
 }

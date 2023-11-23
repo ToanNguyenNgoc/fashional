@@ -6,7 +6,6 @@ import { useProfileStore } from "@/store/zustand/useProfileStore";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import style from "./style.module.css";
@@ -22,21 +21,6 @@ const EditProfile: NextPageWithLayout = () => {
     state.isLoading,
     state.profile,
   ]);
-  const router = useRouter();
-  let tabName = "";
-  switch (router.pathname) {
-    case "/profile/edit-profile":
-      tabName = "Thông tin tài khoản";
-      break;
-    case "/profile/history":
-      tabName = "Lịch sử mua hàng";
-      break;
-    case "/profile/wish-list":
-      tabName = "Danh sách yêu thích";
-      break;
-    default:
-      break;
-  }
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
@@ -66,10 +50,10 @@ const EditProfile: NextPageWithLayout = () => {
 
   return (
     <>
-      <Seo title="Tài khoản của tôi" description="" url="" />
+      <Seo title="Thông tin tài khoản" description="" url="" />
       {!isLoading && (
         <div className={style.account_page_body}>
-          <Card title={tabName}>
+          <Card title={"Thông tin tài khoản"}>
             <div className={style.edit_profile_body}>
               <form
                 autoComplete="off"
@@ -84,15 +68,16 @@ const EditProfile: NextPageWithLayout = () => {
                       <TextField
                         {...field}
                         id="name"
-                        label="Name"
+                        label="Họ và tên"
                         variant="outlined"
                         fullWidth
                         error={!!errors.name}
                         helperText={errors.name?.message}
                         size="small"
+                        required
                       />
                     )}
-                  />{" "}
+                  />
                   <Controller
                     name="phone"
                     control={control}
@@ -100,12 +85,13 @@ const EditProfile: NextPageWithLayout = () => {
                       <TextField
                         {...field}
                         id="phone"
-                        label="Phone"
+                        label="Số điện thoại"
                         variant="outlined"
                         fullWidth
                         error={!!errors.phone}
                         helperText={errors.phone?.message}
                         size="small"
+                        required
                       />
                     )}
                   />
@@ -123,6 +109,7 @@ const EditProfile: NextPageWithLayout = () => {
                       error={!!errors.email}
                       helperText={errors.email?.message}
                       size="small"
+                      required
                     />
                   )}
                 />
@@ -138,10 +125,6 @@ const EditProfile: NextPageWithLayout = () => {
                 )}
               </form>
             </div>
-          </Card>
-
-          <Card title={"Địa chỉ giao hàng"}>
-            <div className={style.edit_profile_body}>a</div>
           </Card>
         </div>
       )}

@@ -12,10 +12,10 @@ const History: NextPageWithLayout = () => {
 
   return (
     <>
-      <Seo title="Lịch sử đơn hàng" description="" url="" />
+      <Seo title="Lịch sử mua hàng" description="" url="" />
       {!isLoading && (
-        <Card title={"Lịch sử đơn hàng"}>
-          <div className={style.edit_profile_body}>a</div>
+        <Card title={"Lịch sử mua hàng"}>
+          <div className={style.edit_profile_body}>Lịch sử mua hàng</div>
         </Card>
       )}
     </>

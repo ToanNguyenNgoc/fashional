@@ -1,24 +1,24 @@
-.button{
+.button {
   background-color: var(--primary);
-  transition: all .3s linear;
+  transition: all 0.3s linear;
   width: max-content;
   margin-left: auto;
 }
-.button:hover{
+.button:hover {
   background-color: var(--primary);
-  transition: all .3s linear;
+  transition: all 0.3s linear;
 }
-.form_input{
+.form_input {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-.rowInput{
+.rowInput {
   display: flex;
   gap: 24px;
 }
 
-.edit_profile_head{
+.edit_profile_head {
   border-bottom: 1px solid var(--border-gray);
   padding: 16px 24px;
 }
@@ -27,8 +27,17 @@
   font-weight: 600;
   line-height: 28px;
 }
-.account_page_body{
+.account_page_body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+@media screen and (max-width: 767.98px) {
+  .rowInput {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .form_input {
+    gap: 16px;
+  }
 }
