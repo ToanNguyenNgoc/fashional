@@ -1,6 +1,6 @@
 import { IUser } from "@/interfaces/user.type";
 import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
+import { useProfileStore } from "@/store/zustand";
 import { ReactNode, createContext, useEffect } from "react";
 
 export type AppContextType = {

@@ -6,3 +6,5 @@ export * from "./page.type";
 export * from "./branch.type";
 export * from "./product.type";
 export * from "./categories.type";
+export * from "./provinces.type";
+export * from "./addressUser.type";

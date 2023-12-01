@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from "@/common";
 import { Card, Seo } from "@/components";
 import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
+import { useProfileStore } from "@/store/zustand";
 import style from "./style.module.css";
 import { ProfileLayout } from "@/layouts";
 

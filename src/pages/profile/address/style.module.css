@@ -1,9 +1,74 @@
 .address_create{
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   cursor: pointer;
 }
 .address_create:hover{
   text-decoration: underline;
+}
+.address_list{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.address_item{
+  border-bottom: 1px solid var(--border-gray);
+  padding-bottom: 24px;
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+.address_item_left{
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.address_item_name_tele{
+  display: flex;
+  line-height: 1.5;
+}
+.address_item_name{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.address_item:hover{
+  border-bottom: 1px solid var(--green);
+}
+.address_item:last-child{
+  margin-bottom: 24px;
+}
+.address_item_detail{
+  color: var(--text-gray);
+  line-height: 1.5;
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: capitalize;
+}
+.address_item_chip{
+  margin-top: 4px;
+  width: max-content;
+}
+.address_item_left{
+  width: 75%;
+  flex-shrink: 0;
+}
+.address_item_right{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 8px;
+}
+.address_right_btns{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-top: -8px;
+}
+.address_right_default{
+  cursor: pointer;
 }

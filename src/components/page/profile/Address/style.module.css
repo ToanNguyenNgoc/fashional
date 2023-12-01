@@ -1,0 +1,14 @@
+.wrap_form{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.wrap_btn{
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+.rowInput{
+  display: flex;
+  gap: 24px;
+}

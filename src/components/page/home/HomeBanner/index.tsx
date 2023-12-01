@@ -40,7 +40,11 @@ export const HomeBanner: FC = () => {
           <h2>Lorem ipsum dolor sit amet.</h2>
         </div>
         <div className={style.banner_content_btn}>
-          <Button color="secondary" size="large" variant="contained">
+          <Button
+            color={IS_MB ? "primary" : "secondary"}
+            size="large"
+            variant="contained"
+          >
             Shop Now
           </Button>
         </div>
