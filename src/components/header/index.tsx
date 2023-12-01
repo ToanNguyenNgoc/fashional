@@ -1,7 +1,6 @@
 import { Dispatch, FC, SetStateAction, useRef, useState } from "react";
 import { imgs } from "@/assets/imgs";
 import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
 import Masonry from "@mui/lab/Masonry";
 import { Avatar, Container, useMediaQuery } from "@mui/material";
 import Image from "next/image";
@@ -17,6 +16,7 @@ import {
   ITag,
 } from "@/interfaces/index.type";
 import { MenuMB, Search } from "@/components";
+import { useProfileStore } from "@/store/zustand";
 
 export default function Header() {
   const IS_MB = useMediaQuery("(max-width:1023px)");

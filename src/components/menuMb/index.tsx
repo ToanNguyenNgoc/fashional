@@ -1,7 +1,7 @@
 import { IQrtag, ITag } from "@/interfaces/tags.type";
 import { tagApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
+import { useProfileStore } from "@/store/zustand";
 import { Avatar } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import Link from "next/link";

@@ -2,7 +2,7 @@ import { NextPageWithLayout } from "@/common";
 import { Card, Seo } from "@/components";
 import { ProfileLayout } from "@/layouts";
 import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
+import { useProfileStore } from "@/store/zustand";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -37,16 +37,15 @@ const EditProfile: NextPageWithLayout = () => {
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      name: profile?.fullname,
-      email: profile?.email,
-      phone: profile?.telephone,
+      name: profile?.fullname ?? '',
+      email: profile?.email ?? '',
+      phone: profile?.telephone ?? '',
     },
   });
 
   const onSubmit = (data: FormData) => {
     console.log(data);
   };
-
 
   return (
     <>
@@ -72,9 +71,8 @@ const EditProfile: NextPageWithLayout = () => {
                         variant="outlined"
                         fullWidth
                         error={!!errors.name}
-                        helperText={errors.name?.message}
-                        size="small"
-                        required
+                        helperText={errors?.name?.message}
+                        size="medium"
                       />
                     )}
                   />
@@ -90,8 +88,7 @@ const EditProfile: NextPageWithLayout = () => {
                         fullWidth
                         error={!!errors.phone}
                         helperText={errors.phone?.message}
-                        size="small"
-                        required
+                        size="medium"
                       />
                     )}
                   />
@@ -108,8 +105,7 @@ const EditProfile: NextPageWithLayout = () => {
                       fullWidth
                       error={!!errors.email}
                       helperText={errors.email?.message}
-                      size="small"
-                      required
+                      size="medium"
                     />
                   )}
                 />

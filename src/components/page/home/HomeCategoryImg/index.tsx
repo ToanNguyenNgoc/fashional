@@ -28,8 +28,10 @@ export const HomeCategoryImg = (props: IProps) => {
             <Image
               fill={true}
               src={item?.img}
-              alt=""
+              alt={`category-${index}`}
               className={style.homeCateItemImg}
+              sizes="100%"
+              priority
             />
             <div className={style.homeCateItemTitle}>
               <span>Lorem, ipsum dolor.</span>

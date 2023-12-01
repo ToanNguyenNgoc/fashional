@@ -6,7 +6,7 @@ import { ILogin } from "@/interfaces/index.type";
 import { SignLayout } from "@/layouts";
 import { authApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
+import { useProfileStore } from "@/store/zustand";
 import { validate } from "@/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoadingButton } from "@mui/lab";
@@ -147,12 +147,10 @@ const LoginPage: NextPageWithLayout = () => {
                 <LoadingButton
                   type="submit"
                   style={{
-                    backgroundColor: "var(--primary)",
                     padding: IS_MB ? "13px 20px" : "20px 14px",
-                    width: "100%",
                     borderRadius: "8px",
-                    fontWeight: "bold",
                   }}
+                  fullWidth
                   loading={isLoading}
                   variant="contained"
                 >
@@ -164,27 +162,23 @@ const LoginPage: NextPageWithLayout = () => {
                 <LoadingButton
                   style={{
                     border: "2px solid var(--primary)",
-                    padding: IS_MB ? "10px 20px" : "14px 14px",
-                    width: "100%",
+                    padding: IS_MB ? "10px 20px" : "14px",
                     backgroundColor: "transparent",
                     borderRadius: "8px",
                     color: "var(--primary)",
-                    fontWeight: "bold",
                   }}
+                  startIcon={<FcGoogle size={IS_MB ? 24 : 30} />}
+                  fullWidth
                   loading={isLoading}
                   variant="contained"
                   onClick={() => onLoginSocial("/auth/login/google")}
                 >
-                  <FcGoogle
-                    style={{ marginRight: "8px" }}
-                    size={IS_MB ? 24 : 30}
-                  />
                   Đăng nhập với Google
                 </LoadingButton>
               </div>
               <div className={style.wrapInput}>
                 <p className={style.formRegisText}>
-                  Bạn chưa có tài khoản?{" "}
+                  Bạn chưa có tài khoản?
                   <Link href="/auth/register">Đăng ký ngay</Link>
                 </p>
               </div>

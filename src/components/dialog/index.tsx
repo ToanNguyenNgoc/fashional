@@ -24,7 +24,9 @@ interface IPropsDialog {
   title?: string | number;
   txtBtnCancer?: string | number;
   txtBtnAgree?: string | number;
-  children: any
+  children?: any;
+  handleSave?: () => void;
+  type?: "submit | button"
 }
 
 export const DialogCustom = (props: IPropsDialog) => {
@@ -35,6 +37,8 @@ export const DialogCustom = (props: IPropsDialog) => {
     txtBtnCancer = "Đóng",
     txtBtnAgree = "Lưu",
     children,
+    handleSave,
+    type,
   } = props;
 
   const handleClose = () => {
@@ -42,37 +46,44 @@ export const DialogCustom = (props: IPropsDialog) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          {title}
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <BsXLg size={20} />
-        </IconButton>
+        <div style={{ position: "relative" }}>
+          <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+            {title}
+          </DialogTitle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <BsXLg size={20} />
+          </IconButton>
+        </div>
         <DialogContent dividers>{children}</DialogContent>
-        <DialogActions>
-          <Button size="small" variant="outlined" onClick={() => handleClose}>
+        {/* <DialogActions>
+          <Button size="small" variant="outlined" onClick={handleClose}>
             {txtBtnCancer}
           </Button>
-          <Button size="small" variant="contained" onClick={() => handleClose}>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={handleSave}
+          >
             {txtBtnAgree}
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </BootstrapDialog>
-    </React.Fragment>
+    </>
   );
 };

@@ -1,7 +1,7 @@
 import { LayoutProps } from "@/common";
 import { AuthLayout } from "@/layouts";
 import { IProfileState } from "@/store/zustand/type";
-import { useProfileStore } from "@/store/zustand/useProfileStore";
+import { useProfileStore } from "@/store/zustand";
 import { Container, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -151,7 +151,7 @@ export function ProfileLayout({ children }: LayoutProps) {
                         </div>
                         <MdOutlineArrowForwardIos
                           style={{ color: "var(--primary)" }}
-                          size={16}
+                          size={14}
                         />
                       </div>
                     </Link>

@@ -16,7 +16,7 @@
 .homeCateListTrans {
   grid-template-columns: repeat(2, 1fr) !important;
 }
-.homeCateListTrans .homeCateItemTitle span {
+.homeCateItemTitle span {
   font-size: 24px;
 }
 .homeCateItem {
@@ -54,7 +54,7 @@
 .homeCateItemTitle span {
   color: #fff;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 24px;
   text-transform: uppercase;
   line-height: 1.5;
   display: -webkit-box;
@@ -64,6 +64,7 @@
   text-overflow: ellipsis;
   word-break: break-word;
 }
+
 @media screen and (max-width: 1023.98px) and (min-width: 768px) {
   .homeCateList {
     display: grid;
@@ -89,15 +90,12 @@
     scroll-snap-align: start;
   }
   .homeCateItemTitle span {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 @media screen and (max-width: 767.98px) {
   .homeCateList {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .homeCateListTrans .homeCateItemTitle span {
-    font-size: 14px;
   }
   .homeCateItemTitle {
     position: absolute;
