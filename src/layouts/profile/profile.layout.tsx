@@ -2,8 +2,7 @@ import { LayoutProps } from "@/common";
 import { AuthLayout } from "@/layouts";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand";
-import { Container, useMediaQuery } from "@mui/material";
-import Image from "next/image";
+import { Avatar, Container, useMediaQuery } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
@@ -13,9 +12,10 @@ import { IoMdHeart } from "react-icons/io";
 import {
   MdLocationOn,
   MdOutlineArrowBackIosNew,
-  MdOutlineArrowForwardIos
+  MdOutlineArrowForwardIos,
 } from "react-icons/md";
 import style from "./style.module.css";
+import { useLogout } from "@/hooks/useLogout";
 
 const tabItem = [
   {
@@ -53,18 +53,10 @@ export function ProfileLayout({ children }: LayoutProps) {
   const router = useRouter();
   const patchName = router.pathname.split("/").filter((item) => Boolean(item));
   const IS_MB = useMediaQuery("(max-width:767px)");
-  const [profile, logoutProfile] = useProfileStore((state: IProfileState) => [
-    state.profile,
-    state.logoutProfile,
-  ]);
-
-  const onLogout = async () => {
-    await logoutProfile();
-    router.push("/");
-  };
-
+  const [profile] = useProfileStore((state: IProfileState) => [state.profile]);
   const refLeft = useRef<HTMLDivElement>(null);
   const refRight = useRef<HTMLDivElement>(null);
+  const onLogout = useLogout();
 
   const handleStep2 = () => {
     refLeft?.current?.classList.add(style.profile_hidden_left);
@@ -89,10 +81,7 @@ export function ProfileLayout({ children }: LayoutProps) {
           <div className={style.profile}>
             <div ref={refLeft} className={style.profile_left}>
               {IS_MB && (
-                <Link
-                  href={"/"}
-                  className={style.btnGoback}
-                >
+                <Link href={"/"} className={style.btnGoback}>
                   <MdOutlineArrowBackIosNew size={20} />
                   <p>Trang chủ</p>
                 </Link>
@@ -112,15 +101,12 @@ export function ProfileLayout({ children }: LayoutProps) {
                             accept="image/jpeg,image/png,img/jpg"
                           />
                           <div className={style.form_ava}>
-                            <Image
-                              width={IS_MB ? 30 : 128}
-                              height={IS_MB ? 30 : 128}
-                              src={
-                                profile?.avatar
-                                  ? profile?.avatar
-                                  : "https://source.unsplash.com/random"
-                              }
-                              alt=""
+                            <Avatar
+                              sx={{
+                                width: 128, height: 128
+                              }}
+                              alt={profile?.fullname}
+                              src={profile?.avatar}
                             />
                             <div className={style.form_edit}>
                               <BsCameraFill

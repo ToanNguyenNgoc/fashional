@@ -7,10 +7,13 @@ interface AlertProps {
   severity?: AlertColor;
   children?: ReactNode;
   message?: string;
+  variant?: "filled" | "standard" | "outlined";
+  vertical?: "bottom" | "top";
+  horizontal?: "center" | "left" | "right";
 }
 
 export function AlertNoti(props: AlertProps) {
-  const { open = false, close, severity = "info", children, message } = props;
+  const { open = false, close, severity = "info", children, message, vertical = "top", horizontal = "right" } = props;
   const handleClose = () => {
     if (close) {
       close();
@@ -18,12 +21,17 @@ export function AlertNoti(props: AlertProps) {
   };
   return (
     <Snackbar
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{ vertical: vertical, horizontal: horizontal }}
       open={open}
       autoHideDuration={4000}
       onClose={handleClose}
     >
-      <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
+      <Alert
+        variant="filled"
+        onClose={handleClose}
+        severity={severity}
+        sx={{ width: "100%" }}
+      >
         {message || children}
       </Alert>
     </Snackbar>

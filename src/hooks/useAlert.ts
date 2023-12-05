@@ -1,6 +1,5 @@
 import { AlertColor } from "@mui/material";
 import { useState } from "react";
-
 interface Noti {
   load: boolean;
   message: string;
@@ -22,7 +21,7 @@ export function useAlert() {
     openAlert: false,
     color: "info",
   });
-  const firstLoad = () => setNoti({ ...noti, load: true });
+  const firstLoad:() => void = () => setNoti({ ...noti, load: true });
   const resultLoad = (options: ResultOptions) => {
     setNoti({
       load: false,

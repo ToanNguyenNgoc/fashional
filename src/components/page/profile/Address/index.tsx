@@ -1,22 +1,24 @@
 import { AlertNoti, DialogCustom } from "@/components";
-import { useAlert } from "@/hooks/useAlert";
+import { QR_KEY } from "@/constants";
+import { useAlert } from "@/hooks";
+import { IParamsPostAddressUser } from "@/interfaces/index.type";
 import { IDistricts, IProvinces, IWards } from "@/interfaces/provinces.type";
 import { addressUserApi, provincesApi } from "@/services";
+import { useProfileStore } from "@/store/zustand";
+import { IProfileState } from "@/store/zustand/type";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, FormHelperText, TextField } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { Button, Checkbox, FormHelperText, TextField, Tooltip } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as Yup from "yup";
 import style from "./style.module.css";
-import { IParamsPostAddressUser } from "@/interfaces/index.type";
-import { useProfileStore } from "@/store/zustand";
-import { IProfileState } from "@/store/zustand/type";
-import { QR_KEY } from "@/constants";
 interface IFormData extends IParamsPostAddressUser {}
 interface IProps {
   open: boolean;
@@ -24,15 +26,30 @@ interface IProps {
 }
 
 export const ProfileAddForm = (props: IProps) => {
-  const { open, setOpen } = props;
+  const router = useRouter();
+  const idAddressUrl = Number(router?.query?.id);
   const queryClient = useQueryClient();
+  const { open, setOpen } = props;
+  const [profile] = useProfileStore((state: IProfileState) => [state.profile]);
   const { resultLoad, onCloseNoti, noti } = useAlert();
   const [provinceID, setProvinceID] = useState<number>(0);
   const [districtID, setDistrictID] = useState<number>(0);
-  const [profile] = useProfileStore((state: IProfileState) => [state.profile]);
+
   const validationSchema: any = Yup.object().shape({
-    consignee_s_name: Yup.string().required("Vui lòng nhập tên"),
-    consignee_s_telephone: Yup.string().required("Vui lòng nhập số điện thoại"),
+    consignee_s_name: Yup.string()
+      .required("Vui lòng nhập tên")
+      .min(2, "Họ tên phải có ít nhất 2 ký tự")
+      .max(50, "Họ tên không được vượt quá 50 ký tự")
+      .matches(
+        /^[^<>]+$/,
+        "Tên không được chứa các ký tự đặc biệt như < hoặc >"
+      ),
+    consignee_s_telephone: Yup.string()
+      .required("Vui lòng nhập số điện thoại")
+      .matches(
+        /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+        "Số điện thoại sai định dạng"
+      ),
     province_code: Yup.string().required("Vui lòng chọn Tỉnh/Thành phố"),
     district_code: Yup.string().required("Vui lòng chọn Phường/Xã"),
     ward_code: Yup.string().required("Vui lòng chọn Quận/Huyện"),
@@ -41,12 +58,12 @@ export const ProfileAddForm = (props: IProps) => {
 
   const defaultInputForm = {
     consignee_s_name: profile?.fullname || "",
-    consignee_s_telephone:  profile?.telephone || "",
+    consignee_s_telephone: profile?.telephone || "",
     short_address: "",
     province_code: "",
     district_code: "",
     ward_code: "",
-    is_default: true,
+    is_default: false,
     lat: 0,
     long: 0,
   };
@@ -62,18 +79,19 @@ export const ProfileAddForm = (props: IProps) => {
     defaultValues: defaultInputForm,
     resolver: yupResolver(validationSchema),
   });
-  const { mutate: postAddress } = useMutation({
+
+  const { mutate: postAddress, isLoading: isLoadingAddAddress } = useMutation({
     mutationFn: (data: IFormData) => addressUserApi.postAddress(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries([QR_KEY.GET_ADDRESS]);
-      resultLoad({
-        message: "Thêm địa chỉ thành công",
-        color: "success",
-      });
+    onSuccess: async () => {
       reset(defaultInputForm);
       setOpen(false);
       setProvinceID(0);
       setDistrictID(0);
+      resultLoad({
+        message: "Thêm địa chỉ thành công",
+        color: "success",
+      });
+      await queryClient.invalidateQueries([QR_KEY.GET_ADDRESS]);
     },
     onError: () => {
       resultLoad({
@@ -83,6 +101,27 @@ export const ProfileAddForm = (props: IProps) => {
     },
   });
 
+  const { mutate: updateAddress, isLoading: isLoadingUpateAddress } =
+    useMutation({
+      mutationFn: (data: IFormData) =>
+        addressUserApi.putAddress(data, idAddressUrl),
+      onSuccess: async() => {
+        setOpen(false);
+        router.push(router.pathname);
+        resultLoad({
+          message: "Cập nhật địa chỉ thành công",
+          color: "success",
+        });
+      await queryClient.invalidateQueries([QR_KEY.GET_ADDRESS]);
+      },
+      onError: () => {
+        resultLoad({
+          message: "Có lỗi xảy ra vui lòng thử lại!",
+          color: "error",
+        });
+      },
+    });
+
   const onSubmit = async (data: IFormData) => {
     if (data) {
       const transData = {
@@ -91,7 +130,9 @@ export const ProfileAddForm = (props: IProps) => {
         ward_code: data.ward_code && +data.ward_code,
         district_code: data.district_code && +data.district_code,
       };
-      await postAddress(transData);
+      (await !!idAddressUrl)
+        ? updateAddress(transData)
+        : postAddress(transData);
     }
   };
 
@@ -102,42 +143,6 @@ export const ProfileAddForm = (props: IProps) => {
   const handleSelectDistricts = (id: number) => {
     setDistrictID(id);
   };
-
-  const { data: provincesData } = useQuery({
-    queryKey: ["PROVINCES"],
-    queryFn: () => provincesApi.getProvinces(),
-    enabled: !!open,
-    onError: () => {
-      resultLoad({
-        message: "Có lỗi xảy ra vui lòng thử lại!",
-        color: "error",
-      });
-    },
-  });
-
-  const { data: districtsData } = useQuery({
-    queryKey: ["DISTRICTS", provinceID],
-    enabled: provinceID > 0,
-    queryFn: () => provincesApi.getDistricts(provinceID),
-    onError: () => {
-      resultLoad({
-        message: "Có lỗi xảy ra vui lòng thử lại!",
-        color: "error",
-      });
-    },
-  });
-
-  const { data: wardsData } = useQuery({
-    queryKey: ["WARDS", districtID],
-    enabled: districtID > 0,
-    queryFn: () => provincesApi.getWards(districtID),
-    onError: () => {
-      resultLoad({
-        message: "Có lỗi xảy ra vui lòng thử lại!",
-        color: "error",
-      });
-    },
-  });
 
   const handleProvinceChange = async (selectedProvinceId: any) => {
     setValue("province_code", selectedProvinceId);
@@ -163,6 +168,69 @@ export const ProfileAddForm = (props: IProps) => {
     ]);
   };
 
+  const { data: dataGetAddressById } = useQuery({
+    queryKey: [QR_KEY.GET_ADDRESS_BY_ID],
+    enabled: !!idAddressUrl,
+    queryFn: () => addressUserApi.getAddressById(idAddressUrl),
+    onSuccess: (data) => {
+      console.log('data :>> ', data?.context?.is_default);
+      setProvinceID(data.context.province_code);
+      setDistrictID(data.context.district_code);
+      setValue("consignee_s_name", data.context.consignee_s_name);
+      setValue("consignee_s_telephone", data.context.consignee_s_telephone);
+      setValue("province_code", data.context.province_code);
+      setValue("district_code", data.context.district_code);
+      setValue("ward_code", data.context.ward_code);
+      setValue("short_address", data.context.short_address);
+      setValue("is_default", data.context.is_default);
+    },
+    onError: () => {
+      resultLoad({
+        message: "Có lỗi xảy ra vui lòng thử lại!",
+        color: "error",
+      });
+    },
+  });
+
+  const { data: provincesData } = useQuery({
+    queryKey: ["PROVINCES"],
+    queryFn: () => provincesApi.getProvinces(),
+    enabled: !!open,
+    staleTime: 60 * 12,
+    onError: () => {
+      resultLoad({
+        message: "Có lỗi xảy ra vui lòng thử lại!",
+        color: "error",
+      });
+    },
+  });
+
+  const { data: districtsData } = useQuery({
+    queryKey: ["DISTRICTS", provinceID],
+    enabled: provinceID > 0,
+    staleTime: 60 * 12,
+    queryFn: () => provincesApi.getDistricts(provinceID),
+    onError: () => {
+      resultLoad({
+        message: "Có lỗi xảy ra vui lòng thử lại!",
+        color: "error",
+      });
+    },
+  });
+
+  const { data: wardsData } = useQuery({
+    queryKey: ["WARDS", districtID],
+    enabled: districtID > 0,
+    staleTime: 60 * 12,
+    queryFn: () => provincesApi.getWards(districtID),
+    onError: () => {
+      resultLoad({
+        message: "Có lỗi xảy ra vui lòng thử lại!",
+        color: "error",
+      });
+    },
+  });
+
   return (
     <>
       <AlertNoti
@@ -170,8 +238,15 @@ export const ProfileAddForm = (props: IProps) => {
         close={onCloseNoti}
         severity={noti.color}
         message={noti.message}
+        horizontal="center"
+        vertical="bottom"
       />
-      <DialogCustom setOpen={setOpen} open={open} title={"Thêm địa chỉ mới"}>
+
+      <DialogCustom
+        setOpen={setOpen}
+        open={open}
+        title={idAddressUrl ? "Thay đổi địa chỉ" : "Thêm địa chỉ mới"}
+      >
         <form
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
@@ -204,6 +279,7 @@ export const ProfileAddForm = (props: IProps) => {
               render={({ field }) => (
                 <TextField
                   {...field}
+                  type="number"
                   label="Số điện thoại"
                   variant="outlined"
                   fullWidth
@@ -218,7 +294,6 @@ export const ProfileAddForm = (props: IProps) => {
             />
             {/* close field address */}
           </div>
-
           {/* field provinces */}
           <FormControl fullWidth error={!!errors.province_code}>
             <InputLabel>Tỉnh/Thành phố *</InputLabel>
@@ -251,7 +326,6 @@ export const ProfileAddForm = (props: IProps) => {
             )}
           </FormControl>
           {/* close field provinces */}
-
           {/* field districts */}
           <FormControl
             disabled={provinceID && provinceID > 0 ? false : true}
@@ -291,7 +365,6 @@ export const ProfileAddForm = (props: IProps) => {
             )}
           </FormControl>
           {/* close field district */}
-
           {/* field wards */}
           <FormControl
             disabled={districtID && districtID > 0 ? false : true}
@@ -327,7 +400,6 @@ export const ProfileAddForm = (props: IProps) => {
             )}
           </FormControl>
           {/* close field wards */}
-
           {/* field address */}
           <Controller
             name="short_address"
@@ -347,6 +419,34 @@ export const ProfileAddForm = (props: IProps) => {
             )}
           />
           {/* close field address */}
+          {/* field  switch*/}
+          <Tooltip
+            title={
+              dataGetAddressById && dataGetAddressById?.context?.is_default
+                ? "Vui lòng chọn địa chỉ khác để đặt mặc định"
+                : ""
+            }
+            placement="top-start"
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <Controller
+                name="is_default"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Checkbox
+                    disabled={
+                      dataGetAddressById &&
+                      dataGetAddressById?.context?.is_default
+                    }
+                    checked={value}
+                    onChange={onChange}
+                  />
+                )}
+              />
+              <label>Đặt làm địa chỉ mặc định</label>
+            </div>
+          </Tooltip>
+          {/* close field  switch*/}
 
           {/* action btns */}
           <div className={style.wrap_btn}>
@@ -355,14 +455,19 @@ export const ProfileAddForm = (props: IProps) => {
               size="medium"
               variant="outlined"
               onClick={() => {
-                setOpen(false);
+                setOpen(false), router.push(`${router.pathname}`);
               }}
             >
               Đóng
             </Button>
-            <Button type="submit" size="medium" variant="contained">
-              Lưu
-            </Button>
+            <LoadingButton
+              type="submit"
+              size="medium"
+              loading={isLoadingAddAddress || isLoadingUpateAddress}
+              variant="contained"
+            >
+              <span>Lưu</span>
+            </LoadingButton>
           </div>
           {/* close actions */}
         </form>

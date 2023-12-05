@@ -6,10 +6,11 @@ export interface AxiosCusError<D> extends AxiosResponse<D> {
   };
 }
 export interface IResponseDetail<T> {
-  context: T;
   statusCode: number;
+  context: T;
 }
 export interface IResponseList<T> {
+  statusCode: number;
   context: {
     current_page: number;
     data: T;
@@ -18,5 +19,11 @@ export interface IResponseList<T> {
     total: number;
     total_page: number;
   };
+}
+
+export interface IResponseMessage {
   statusCode: number;
+  context: {
+    message: string
+  };
 }

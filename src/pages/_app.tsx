@@ -6,6 +6,23 @@ import { QueryClientProvider } from "react-query";
 import { AppProvider } from "@/context";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
+  typography: {
+    fontFamily: [
+      "Helvetica",
+      "Courier",
+      "monospace",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+  },
   palette: {
     primary: {
       main: "#12131a",

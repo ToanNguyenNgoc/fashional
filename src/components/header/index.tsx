@@ -1,32 +1,30 @@
-import { Dispatch, FC, SetStateAction, useRef, useState } from "react";
 import { imgs } from "@/assets/imgs";
-import { IProfileState } from "@/store/zustand/type";
-import Masonry from "@mui/lab/Masonry";
-import { Avatar, Container, useMediaQuery } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import { BiCart, BiSearch, BiUser, BiHeart } from "react-icons/bi";
-import style from "./style.module.css";
-import { useQuery } from "react-query";
-import { tagApi } from "@/services/tag.api";
+import { MenuMB, Search } from "@/components";
+import { useLogout } from "@/hooks";
 import {
   ICategories,
   IQrtag,
   IResponseList,
   ITag,
 } from "@/interfaces/index.type";
-import { MenuMB, Search } from "@/components";
+import { tagApi } from "@/services/tag.api";
 import { useProfileStore } from "@/store/zustand";
+import { IProfileState } from "@/store/zustand/type";
+import Masonry from "@mui/lab/Masonry";
+import { Avatar, Container, useMediaQuery } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { BiCart, BiHeart, BiSearch, BiUser } from "react-icons/bi";
+import { useQuery } from "react-query";
+import style from "./style.module.css";
 
 export default function Header() {
+  const onLogout = useLogout();
   const IS_MB = useMediaQuery("(max-width:1023px)");
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [openSearch, setOpenSearch] = useState<boolean>(false);
-
-  const [profile, logoutProfile] = useProfileStore((state: IProfileState) => [
-    state.profile,
-    state.logoutProfile,
-  ]);
+  const [profile] = useProfileStore((state: IProfileState) => [state.profile]);
   const params: IQrtag = {
     includes: "categories",
     status: true,
@@ -53,7 +51,10 @@ export default function Header() {
       {/* header */}
       <div className={style.header}>
         <div className={style.headerWrap}>
-          <Container maxWidth={false} sx={{ maxWidth: "1440px", height: "100%"}}>
+          <Container
+            maxWidth={false}
+            sx={{ maxWidth: "1440px", height: "100%" }}
+          >
             <div className={style.header_box}>
               {/* left */}
               <div className={style.headerLeft}>
@@ -118,7 +119,10 @@ export default function Header() {
                       </Link>
                     ) : (
                       <div className={style.userWrap}>
-                        <Link href="profile/edit-profile" className={style.user}>
+                        <Link
+                          href="profile/edit-profile"
+                          className={style.user}
+                        >
                           Hi, {profile?.fullname}
                           <Avatar
                             alt={profile?.fullname}
@@ -133,7 +137,7 @@ export default function Header() {
                             </li>
 
                             <li
-                              onClick={() => logoutProfile()}
+                              onClick={onLogout}
                               className={style.userDropItem}
                             >
                               Đăng xuất

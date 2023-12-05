@@ -179,7 +179,7 @@ const LoginPage: NextPageWithLayout = () => {
               <div className={style.wrapInput}>
                 <p className={style.formRegisText}>
                   Bạn chưa có tài khoản?
-                  <Link href="/auth/register">Đăng ký ngay</Link>
+                  <Link style={{marginLeft: "6px"}} href="/auth/register">Đăng ký ngay</Link>
                 </p>
               </div>
             </form>
