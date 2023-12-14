@@ -94,10 +94,10 @@
   }
   .address_item_left {
     flex-shrink: 0;
-    width: 75%;
+    width: 70%;
   }
   .address_item_right {
-    width: 25%;
+    width: 30%;
   }
   .address_item_detail{
     font-size: 12px;

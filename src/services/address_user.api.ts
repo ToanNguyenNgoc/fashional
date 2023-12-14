@@ -24,9 +24,9 @@ export const addressUserApi = {
       .post("customer/addresses", params)
       .then<IResponseDetail<IAddressUser>>((res) => res.data);
   },
-  putAddress: (params: IParamsPostAddressUser, address_id:number) => {
+  putAddress: (params: IParamsPostAddressUser) => {
     return axiosConfig
-      .put(`customer/addresses/${address_id}`, params)
+      .put(`customer/addresses/${params.id}`, params)
       .then<IResponseDetail<IAddressUser>>((res) => res.data);
   },
   deleteAddress: (address_id: number) => {

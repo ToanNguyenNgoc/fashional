@@ -30,6 +30,10 @@ module.exports = {
         source: "/profile/address/:id",
         destination: "/profile/address",
       },
+      {
+        source: "/profile/address/new",
+        destination: "/profile/address",
+      },
     ];
   },
 };

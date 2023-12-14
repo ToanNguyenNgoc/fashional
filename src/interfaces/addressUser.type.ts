@@ -37,8 +37,9 @@ export interface IParamsGetAddressUser extends IPage {
   is_default?: boolean;
 }
 export interface IParamsPostAddressUser {
+  id?: number;
   consignee_s_name?: string;
-  consignee_s_telephone?: string;
+  consignee_s_telephone?: string | number;
   short_address?: string;
   province_code?: number | string;
   district_code?: number | string;

@@ -1,6 +1,4 @@
 import { NextPageWithLayout } from "@/common";
-import { AlertNoti } from "@/components";
-import { useAlert } from "@/hooks/useAlert";
 import { IForgot } from "@/interfaces/index.type";
 import { AxiosCusError } from "@/interfaces/res.type";
 import { SignLayout } from "@/layouts";
@@ -21,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
+import { toast } from "react-toastify";
 
 interface ResError {
   error: string;
@@ -31,7 +30,6 @@ interface ResError {
 const ForgotPage: NextPageWithLayout = () => {
   const IS_MB = useMediaQuery("(max-width:767px)");
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
-  const { resultLoad, onCloseNoti, noti } = useAlert();
   const router = useRouter();
   const [captcha, setCaptcha] = useState("");
   const queryTokenParams = router.query.token as string | undefined;
@@ -89,15 +87,9 @@ const ForgotPage: NextPageWithLayout = () => {
     onSuccess: () => {
       setRefreshReCaptcha((r) => !r);
       if (!queryTokenParams) {
-        resultLoad({
-          message: "Mã xác thực đã được gửi đến Email của bạn",
-          color: "success",
-        });
+        toast.info("Mã xác thực đã được gửi đến Email của bạn");
       } else {
-        resultLoad({
-          message: "Thay đổi mật khẩu thành công",
-          color: "success",
-        });
+        toast.success("Thay đổi mật khẩu thành công");
         setTimeout(() => {
           router.push("/auth/login");
         }, 1000);
@@ -105,23 +97,18 @@ const ForgotPage: NextPageWithLayout = () => {
     },
     onError: (err: AxiosCusError<ResError>) => {
       setRefreshReCaptcha((r) => !r);
-      resultLoad({
-        message: Array.isArray(err.response.data.message)
-          ? err.response.data.message[0]
-          : err.response.data.message,
-        color: "error",
-      });
+      toast.error(`
+        ${
+          Array.isArray(err.response.data.message)
+            ? err.response.data.message[0]
+            : err.response.data.message
+        },
+      `);
     },
   });
 
   return (
     <>
-      <AlertNoti
-        open={noti.openAlert}
-        close={onCloseNoti}
-        severity={noti.color}
-        message={noti.message}
-      />
       <GoogleReCaptchaProvider
         reCaptchaKey={process.env.NEXT_PUBLIC_KEY_CAPTCHA || ""}
         scriptProps={{

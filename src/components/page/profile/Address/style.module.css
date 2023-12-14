@@ -12,3 +12,16 @@
   display: flex;
   gap: 24px;
 }
+.form_checkbox{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media screen and (max-width: 767.98px) {
+  .wrap_form {
+    padding: 24px 16px 16px 16px;
+  }
+  .rowInput{
+    flex-direction: column;
+  }
+}

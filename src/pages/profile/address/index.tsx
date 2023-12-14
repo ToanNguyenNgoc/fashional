@@ -1,29 +1,32 @@
 import { NextPageWithLayout } from "@/common";
-import { AlertNoti, Card, DialogCustom, Seo } from "@/components";
+import { Card, DialogCustom, Seo } from "@/components";
 import { ProfileAddForm } from "@/components/page/profile";
 import { QR_KEY } from "@/constants";
-import { useAlert } from "@/hooks/useAlert";
-import { IAddressUser, IAddressUserDetail } from "@/interfaces/index.type";
+import {
+  IAddressUser,
+  IAddressUserDetail,
+  IParamsPostAddressUser,
+} from "@/interfaces/index.type";
 import { ProfileLayout } from "@/layouts";
 import { addressUserApi } from "@/services";
+import { useProfileStore } from "@/store/zustand";
+import { IProfileState } from "@/store/zustand/type";
 import { Button, Chip } from "@mui/material";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
 import style from "./style.module.css";
-import { useRouter } from "next/router";
-import { useProfileStore } from "@/store/zustand";
-import { IProfileState } from "@/store/zustand/type";
+
 const Address: NextPageWithLayout = () => {
-  const invalidateQueries = useQueryClient();
-  const router = useRouter()
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [ profile] = useProfileStore((state: IProfileState) => [
-    state.profile,
-  ]);
+  const [profile] = useProfileStore((state: IProfileState) => [state.profile]);
   const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
   const [itemAddress, setItemAddress] = useState<IAddressUser>();
-  const { resultLoad, onCloseNoti, noti } = useAlert();
+
   const { data: addressData } = useQuery({
     queryKey: [QR_KEY.GET_ADDRESS],
     enabled: !!profile,
@@ -35,52 +38,64 @@ const Address: NextPageWithLayout = () => {
         is_default: true,
       }),
     onSuccess: (res) => {
-      const findItem = res?.context?.data?.find(
-        (item: IAddressUserDetail) => item?.id === Number(router?.query?.id)
-      );
-      if (findItem) {
+      if (router.asPath === "/profile/address/new") {
         setOpen(true);
+      } else if (!!Number(router?.query?.id)) {
+        const findItem = res?.context?.data?.find(
+          (item: IAddressUserDetail) => item?.id === Number(router?.query?.id)
+        );
+        if (findItem) {
+          setOpen(true);
+        } else {
+          router.push(`${router.pathname}`);
+        }
       } else {
         router.push(`${router.pathname}`);
       }
     },
     onError: () => {
-      resultLoad({
-        message: "Có lỗi xảy ra vui lòng thử lại!",
-        color: "error",
-      });
+      toast.error("Có lỗi xảy ra vui lòng thử lại sau");
     },
   });
 
-  const { mutate: deleteAddress, isLoading:isLoadingDeleteAddress } = useMutation({
-    mutationFn: (id: number) => addressUserApi.deleteAddress(id),
-    onSuccess: () => {
-      resultLoad({
-        message: "Xóa địa chỉ thành công",
-        color: "success",
-      });
-      invalidateQueries.invalidateQueries([QR_KEY.GET_ADDRESS]);
-      setOpenConfirmDialog(false);
-    },
-    onError: () => {
-      resultLoad({
-        message: "Có lỗi xảy ra vui lòng thử lại!",
-        color: "error",
-      });
-    },
-  });
+  const { mutate: deleteAddress, isLoading: isLoadingDeleteAddress } =
+    useMutation({
+      mutationFn: (id: number) => addressUserApi.deleteAddress(id),
+      onSuccess: () => {
+        toast.success("Xóa địa chỉ thành công");
+        queryClient.invalidateQueries([QR_KEY.GET_ADDRESS]);
+        setOpenConfirmDialog(false);
+      },
+      onError: () => {
+        toast.error("Có lỗi xảy ra vui lòng thử lại sau");
+      },
+    });
+
+  const { mutate: updateAddress, isLoading: isLoadingUpateAddress } =
+    useMutation({
+      mutationFn: (data: IParamsPostAddressUser) =>
+        addressUserApi.putAddress(data),
+      onSuccess: () => {
+        toast.success("Thay đổi thành công");
+        queryClient.invalidateQueries([QR_KEY.GET_ADDRESS]);
+      },
+      onError: () => {
+        toast.error("Có lỗi xảy ra vui lòng thử lại sau");
+      },
+    });
+
+  const handleUpdate = async (item: IAddressUserDetail) => {
+    if (item) {
+      let data = {
+        is_default: true,
+        id: item?.id,
+      };
+      await updateAddress(data);
+    }
+  };
 
   return (
     <>
-      <AlertNoti
-        open={noti.openAlert}
-        close={onCloseNoti}
-        severity={noti.color}
-        message={noti.message}
-        horizontal="center"
-        vertical="bottom"
-      />
-
       <Seo title="Địa chỉ giao hàng" description="" url="" />
 
       <Card title={"Địa chỉ giao hàng"}>
@@ -124,8 +139,12 @@ const Address: NextPageWithLayout = () => {
                     </p>
 
                     {item.is_default !== true ? (
-                      <div className={style.address_right_default}>
+                      <div
+                        onClick={() => handleUpdate(item)}
+                        className={style.address_right_default}
+                      >
                         <Chip
+                          disabled={isLoadingUpateAddress}
                           size="small"
                           label={"Đặt làm mặc định"}
                           color={"default"}
@@ -201,13 +220,24 @@ const Address: NextPageWithLayout = () => {
               )
             )}
         </ul>
-        <div onClick={() => setOpen(true)} className={style.address_create}>
+        <div
+          onClick={() => {
+            setOpen(true), router.push(`${router.pathname}/new`);
+          }}
+          className={style.address_create}
+        >
           <BsPlusCircle size={20} />
           <p>Thêm địa chỉ mới</p>
         </div>
       </Card>
 
-      {open && <ProfileAddForm open={open} setOpen={setOpen} />}
+      {open && (
+        <ProfileAddForm
+          addressData={addressData?.context.data}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
 
       <DialogCustom
         handleAgree={() => itemAddress && deleteAddress(itemAddress.id)}
