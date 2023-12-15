@@ -26,6 +26,14 @@ module.exports = {
         source: "/profile/:slug",
         destination: "/profile/:slug",
       },
+      {
+        source: "/profile/address/:id",
+        destination: "/profile/address",
+      },
+      {
+        source: "/profile/address/new",
+        destination: "/profile/address",
+      },
     ];
   },
 };

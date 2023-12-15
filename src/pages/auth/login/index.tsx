@@ -1,7 +1,5 @@
 import { NextPageWithLayout } from "@/common";
-import { AlertNoti } from "@/components";
 import { baseURL } from "@/configs";
-import { useAlert } from "@/hooks/useAlert";
 import { ILogin } from "@/interfaces/index.type";
 import { SignLayout } from "@/layouts";
 import { authApi } from "@/services";
@@ -20,12 +18,11 @@ import { FcGoogle } from "react-icons/fc";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
+import { toast } from "react-toastify";
 
 const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
   const IS_MB = useMediaQuery("(max-width:767px)");
-  const { resultLoad, onCloseNoti, noti } = useAlert();
-
   const getProfile = useProfileStore(
     (state: IProfileState) => state.getProfile
   );
@@ -59,10 +56,7 @@ const LoginPage: NextPageWithLayout = () => {
       router.push("/");
     },
     onError: () => {
-      resultLoad({
-        message: "Email hoặc mật khẩu không đúng! Vui lòng thử lại",
-        color: "error",
-      });
+      toast.error("Email hoặc mật khẩu không đúng! Vui lòng thử lại");
     },
   });
 
@@ -88,13 +82,6 @@ const LoginPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <AlertNoti
-        open={noti.openAlert}
-        close={onCloseNoti}
-        severity={noti.color}
-        message={noti.message}
-      />
-
       <Container>
         <div className={style.loginWraper}>
           {/* <div className={style.loginLeft}>
@@ -179,7 +166,7 @@ const LoginPage: NextPageWithLayout = () => {
               <div className={style.wrapInput}>
                 <p className={style.formRegisText}>
                   Bạn chưa có tài khoản?
-                  <Link href="/auth/register">Đăng ký ngay</Link>
+                  <Link style={{marginLeft: "6px"}} href="/auth/register">Đăng ký ngay</Link>
                 </p>
               </div>
             </form>

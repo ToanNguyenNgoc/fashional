@@ -1,5 +1,4 @@
 export * from "./seo";
-export * from "./alert";
 export * from "./header";
 export * from "./footer";
 export * from "./search";
@@ -7,5 +6,6 @@ export * from "./menuMb";
 export * from "./button";
 export * from "./card";
 export * from "./dialog";
+export * from "./pluginMessagerFacebook";
 export * from "./productItem";
 export * from "./skeleton/index";

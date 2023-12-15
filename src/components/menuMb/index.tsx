@@ -2,8 +2,7 @@ import { IQrtag, ITag } from "@/interfaces/tags.type";
 import { tagApi } from "@/services";
 import { IProfileState } from "@/store/zustand/type";
 import { useProfileStore } from "@/store/zustand";
-import { Avatar } from "@mui/material";
-import Drawer from "@mui/material/Drawer";
+import { Avatar, Drawer } from "@mui/material";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { GrClose, GrMenu, GrLogin } from "react-icons/gr";
@@ -14,19 +13,18 @@ import {
 } from "react-icons/md";
 import { useQuery } from "react-query";
 import style from "./style.module.css";
+import { useLogout } from "@/hooks";
+
 
 export const MenuMB: React.FC = () => {
+  const [profile] = useProfileStore((state: IProfileState) => [state.profile]);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [categories, setCategories] = useState<ITag>();
   const [tags, setTags] = useState<ITag[]>([]);
-  const [profile, logoutProfile] = useProfileStore((state: IProfileState) => [
-    state.profile,
-    state.logoutProfile,
-  ]);
-
   const refStep1 = useRef<HTMLDivElement>(null);
   const refStep2 = useRef<HTMLDivElement>(null);
   const refStep3 = useRef<HTMLDivElement>(null);
+  const onLogout = useLogout();
 
   const handleNextStep2 = (item?: ITag[] | undefined) => {
     refStep1?.current?.classList.add(style.preHideLeft);
@@ -144,7 +142,7 @@ export const MenuMB: React.FC = () => {
               {profile ? (
                 <div
                   onClick={() => {
-                    setOpenMenu(false), logoutProfile();
+                    onLogout(), setOpenMenu(false);
                   }}
                   className={style.menuMBItemRow}
                 >
@@ -199,7 +197,7 @@ export const MenuMB: React.FC = () => {
                   </li>
                   <li
                     onClick={() => {
-                      logoutProfile(), setOpenMenu(false);
+                      onLogout(), setOpenMenu(false);
                     }}
                     className={style.menuMBItem}
                   >

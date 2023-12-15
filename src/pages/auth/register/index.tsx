@@ -1,5 +1,3 @@
-import { AlertNoti } from "@/components";
-import { useAlert } from "@/hooks/useAlert";
 import { authApi } from "@/services";
 import { validate } from "@/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,9 +18,9 @@ import {
 import { useRouter } from "next/router";
 import { NextPageWithLayout } from "@/common";
 import { SignLayout } from "@/layouts";
+import { toast } from "react-toastify";
 
 const RegisterPage: NextPageWithLayout = () => {
-  const { resultLoad, onCloseNoti, noti } = useAlert();
   const [token, setToken] = useState<string>("");
   const IS_MB = useMediaQuery("(max-width:767px)");
   const router = useRouter();
@@ -81,10 +79,7 @@ const RegisterPage: NextPageWithLayout = () => {
     onSuccess: async () => {
       setRefreshReCaptcha((r) => !r);
       reset();
-      resultLoad({
-        message: "Vui lòng kiểm tra gmail để xác thực tài khoản!",
-        color: "success",
-      });
+      toast.info("Vui lòng kiểm tra gmail để xác thực tài khoản!");
       setTimeout(() => {
         router.push("/auth/login");
       }, 3000);
@@ -92,10 +87,7 @@ const RegisterPage: NextPageWithLayout = () => {
     onError: (error) => {
       setRefreshReCaptcha((r) => !r);
       const err = error as AxiosError<{ message: string }>;
-      resultLoad({
-        message: err.response?.data?.message ?? "",
-        color: "error",
-      });
+      toast.error(`${err.response?.data?.message ?? ""}`);
     },
   });
 
@@ -110,13 +102,6 @@ const RegisterPage: NextPageWithLayout = () => {
           nonce: undefined,
         }}
       >
-        <AlertNoti
-          open={noti.openAlert}
-          close={onCloseNoti}
-          severity={noti.color}
-          message={noti.message}
-        />
-
         <Container>
           <div className={style.loginWraper}>
             {/* <div className={style.loginLeft}></div> */}

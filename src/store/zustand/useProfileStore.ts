@@ -16,7 +16,7 @@ export const useProfileStore = create<IProfileState>()((set) => ({
   },
   logoutProfile: async () => {
     await authApi.logout();
-    Cookies.remove("access_token");
+    Cookies.remove("accessToken");
     Cookies.remove("refresh_token");
     Cookies.remove("token_expired_at");
     set(() => ({ profile: null }));

@@ -8,6 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import { SetStateAction } from "react";
 import { BsXLg } from "react-icons/bs";
 import { Button } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { useRouter } from "next/router";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -25,8 +27,10 @@ interface IPropsDialog {
   txtBtnCancer?: string | number;
   txtBtnAgree?: string | number;
   children?: any;
-  handleSave?: () => void;
-  type?: "submit | button"
+  handleAgree?: () => void;
+  type?: "submit | button";
+  action?: boolean;
+  isLoading?: boolean;
 }
 
 export const DialogCustom = (props: IPropsDialog) => {
@@ -37,12 +41,15 @@ export const DialogCustom = (props: IPropsDialog) => {
     txtBtnCancer = "Đóng",
     txtBtnAgree = "Lưu",
     children,
-    handleSave,
+    handleAgree,
     type,
+    action = false,
+    isLoading = false,
   } = props;
-
+  const router = useRouter()
   const handleClose = () => {
     setOpen(false);
+    router.push(`${router.pathname}`)
   };
 
   return (
@@ -70,19 +77,24 @@ export const DialogCustom = (props: IPropsDialog) => {
             <BsXLg size={20} />
           </IconButton>
         </div>
-        <DialogContent dividers>{children}</DialogContent>
-        {/* <DialogActions>
-          <Button size="small" variant="outlined" onClick={handleClose}>
-            {txtBtnCancer}
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            onClick={handleSave}
-          >
-            {txtBtnAgree}
-          </Button>
-        </DialogActions> */}
+        {/* dividers (line) */}
+        <DialogContent>{children}</DialogContent>
+        {action && (
+          <DialogActions>
+            <Button size="small" variant="outlined" onClick={handleClose}>
+              {txtBtnCancer}
+            </Button>
+            {isLoading ? (
+              <LoadingButton loading={isLoading} variant="contained">
+                <span>{txtBtnAgree}</span>
+              </LoadingButton>
+            ) : (
+              <Button size="small" variant="contained" onClick={handleAgree}>
+                {txtBtnAgree}
+              </Button>
+            )}
+          </DialogActions>
+        )}
       </BootstrapDialog>
     </>
   );

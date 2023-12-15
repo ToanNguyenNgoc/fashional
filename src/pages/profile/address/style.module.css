@@ -1,74 +1,108 @@
-.address_create{
+.address_create {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   cursor: pointer;
 }
-.address_create:hover{
+.address_create:hover {
   text-decoration: underline;
 }
-.address_list{
+.address_list {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-.address_item{
+.address_item {
   border-bottom: 1px solid var(--border-gray);
   padding-bottom: 24px;
   display: flex;
   gap: 14px;
   width: 100%;
 }
-.address_item_left{
+.address_item_left {
   display: flex;
   flex-direction: column;
-  cursor: pointer;
 }
-.address_item_name_tele{
+.address_item_name_tele {
   display: flex;
   line-height: 1.5;
 }
-.address_item_name{
+.address_item_name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-transform: capitalize;
 }
-.address_item:hover{
-  border-bottom: 1px solid var(--green);
-}
-.address_item:last-child{
+/* .address_item:hover {
+  border-bottom: 1px solid var(--primary);
+} */
+.address_item:last-child {
   margin-bottom: 24px;
 }
-.address_item_detail{
+.address_item_detail {
   color: var(--text-gray);
   line-height: 1.5;
   font-size: 14px;
   font-weight: normal;
   text-transform: capitalize;
 }
-.address_item_chip{
+.address_item_chip,
+.address_right_default {
   margin-top: 4px;
   width: max-content;
 }
-.address_item_left{
-  width: 75%;
+.address_right_default {
+  cursor: pointer;
+}
+.address_item_left {
+  width: 80%;
   flex-shrink: 0;
 }
-.address_item_right{
-  width: 25%;
+.address_item_right {
+  width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
   gap: 8px;
 }
-.address_right_btns{
+.address_right_btns {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
   margin-top: -8px;
 }
-.address_right_default{
-  cursor: pointer;
+@media screen and (max-width: 1023.98px) {
+  .address_item_name_tele {
+    flex-direction: column;
+  }
+  .lineHorizontal {
+    display: none;
+  }
+  .address_item_left {
+    flex-shrink: 0;
+    width: 75%;
+  }
+  .address_item_right {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .address_item_name_tele {
+    flex-direction: row;
+  }
+  .lineHorizontal {
+    display: block;
+  }
+  .address_item_left {
+    flex-shrink: 0;
+    width: 70%;
+  }
+  .address_item_right {
+    width: 30%;
+  }
+  .address_item_detail{
+    font-size: 12px;
+  }
 }

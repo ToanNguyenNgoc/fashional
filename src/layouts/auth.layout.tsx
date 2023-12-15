@@ -14,9 +14,9 @@ export function AuthLayout({ children }: LayoutProps) {
     state.profile,
   ]);
   useEffect(() => {
-    // if (!isLoading && !profile) {
-    //   router.push("/auth/login");
-    // }
+    if (!isLoading && !profile) {
+      router.push("/auth/login");
+    }
   }, [isLoading, profile]);
   return (
     <>
