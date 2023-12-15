@@ -45,7 +45,7 @@ export default function AddressForm(props:IProps) {
 
   const validationSchema: any = Yup.object().shape({
     consignee_s_name: Yup.string()
-      .required("Vui lòng nhập tên")
+      .required("Vui lòng nhập họ tên")
       .min(2, "Họ tên phải có ít nhất 2 ký tự")
       .max(50, "Họ tên không được vượt quá 50 ký tự")
       .matches(
@@ -217,7 +217,7 @@ export default function AddressForm(props:IProps) {
           render={({ field }) => (
             <TextField
               {...field}
-              label="Họ và tên"
+              label="Họ và tên *"
               variant="outlined"
               fullWidth
               error={!!errors.consignee_s_name}
@@ -237,7 +237,7 @@ export default function AddressForm(props:IProps) {
             <TextField
               {...field}
               type="number"
-              label="Số điện thoại"
+              label="Số điện thoại *"
               variant="outlined"
               fullWidth
               error={!!errors.consignee_s_telephone}
@@ -288,7 +288,7 @@ export default function AddressForm(props:IProps) {
           !!errors.district_code
         }
       >
-        <InputLabel>Phường/Xã *</InputLabel>
+        <InputLabel>Quận/Huyện *</InputLabel>
         <Controller
           name="district_code"
           control={control}
@@ -297,7 +297,7 @@ export default function AddressForm(props:IProps) {
               {...field}
               value={field.value || ""}
               onChange={(e) => handleDistrictChange(e.target.value)}
-              label="Phường/Xã *"
+              label="Quận/Huyện *"
             >
               {districtsData?.context?.data.map(
                 (item: IDistricts, index: number) => (
@@ -322,7 +322,7 @@ export default function AddressForm(props:IProps) {
           (!!Number(getValues("district_code")) ? true : false) && !!errors.ward_code
         }
       >
-        <InputLabel>Quận/Huyện *</InputLabel>
+        <InputLabel>Phường/Xã *</InputLabel>
         <Controller
           name="ward_code"
           control={control}
@@ -331,7 +331,7 @@ export default function AddressForm(props:IProps) {
               {...field}
               value={field.value || ""}
               onChange={(e) => field.onChange(e.target.value)}
-              label="Quận/Huyện *"
+              label="Phường/Xã *"
             >
               {wardsData?.context?.data.map((item: IWards, index: number) => (
                 <MenuItem key={index} value={item.code}>

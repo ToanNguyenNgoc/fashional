@@ -92,6 +92,9 @@
   .address_item_name_tele {
     flex-direction: row;
   }
+  .lineHorizontal {
+    display: block;
+  }
   .address_item_left {
     flex-shrink: 0;
     width: 70%;

@@ -16,7 +16,7 @@ export const ProfileAddForm = (props: IProps) => {
   const { open, setOpen, addressData } = props;
   const router = useRouter();
   const idAddressUrl = Number(router?.query?.id);
-  const IS_MB = useMediaQuery("(max-width:1023px)");
+  const IS_MB = useMediaQuery("(max-width:767px)");
 
   return (
     <>

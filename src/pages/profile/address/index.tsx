@@ -134,8 +134,8 @@ const Address: NextPageWithLayout = () => {
                     </p>
                     <p className={style.address_item_detail}>
                       <span>{item?.ward?.name}</span>,{" "}
-                      <span>{item?.province?.name}</span>,{" "}
-                      <span>{item?.district?.name}</span>.
+                      <span>{item?.district?.name}</span>,{" "}
+                      <span>{item?.province?.name}</span>.
                     </p>
 
                     {item.is_default !== true ? (
