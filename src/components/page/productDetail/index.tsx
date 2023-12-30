@@ -17,13 +17,15 @@ import Link from "next/link";
 import { GetServerSidePropsContext } from "next";
 import { baseURL, serverSideCache } from "@/configs";
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { Resolver, useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
+import * as Yup from "yup";
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
+  FormHelperText,
 } from "@mui/material";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
@@ -34,9 +36,11 @@ import "lightgallery/css/lightgallery.css";
 import style from "./style.module.css";
 import { toast } from "react-toastify";
 import { formatMoney } from "@/utils";
+import { yupResolver } from "@hookform/resolvers/yup";
 interface FormData {
-  color: string;
+  // color: string;
   size: string;
+  id: number;
 }
 
 const LightGallery = dynamic(() => import("lightgallery/react"), {
@@ -54,19 +58,51 @@ const dataFake = [
 export function ProductDetail() {
   const router = useRouter();
   const qrStr = router?.query?.productId as string;
-  const [colorPicker, setColorPicker] = useState("black");
-  const [sizePicker, setSizePicker] = useState('');
+  // const [colorPicker, setColorPicker] = useState("black");
+  const [sizePicker, setSizePicker] = useState<number | string>();
+
+  const validationSchema = Yup.object().shape({
+    size: Yup.string().required("Vui lòng chọn size"),
+  });
+
+  const validationResolver: Resolver<FormData, any> = async (values) => {
+    try {
+      await validationSchema.validate(values, { abortEarly: false });
+      return { values, errors: {} };
+    } catch (validationErrors: any) {
+      const errors = validationErrors.inner.reduce(
+        (allErrors: Record<string, string>, error: any) => ({
+          ...allErrors,
+          [error.path]: {
+            type: error.type ?? "validation",
+            message: error.message,
+          },
+        }),
+        {}
+      );
+      return {
+        values: {},
+        errors,
+      };
+    }
+  };
+
   const { data: dataProduct, isLoading } = useQuery({
     queryKey: [QR_KEY.GET_PRODUCT_DETAIL, qrStr],
     enabled: !!qrStr,
     queryFn: () =>
-    productApi.getProductById(
-      { includes: "created_by|category|sizes" },
-      qrStr
+      productApi.getProductById(
+        { includes: "created_by|category|sizes" },
+        qrStr
       ),
-      staleTime: QR_TIME_CACHE,
-    });
-    const dataPrDetail = dataProduct?.context;
+    onError: () => {
+      toast.error(
+        `Có lỗi sảy ra vui lòng thử lại sau (code_error: product_detail_error)`
+      );
+    },
+    staleTime: QR_TIME_CACHE,
+  });
+  const dataPrDetail = dataProduct && dataProduct?.context;
 
   const percent =
     dataPrDetail &&
@@ -80,25 +116,39 @@ export function ProductDetail() {
     enabled: !!dataPrDetail,
     queryFn: () => productApi.getProductSizeById(Number(dataPrDetail?.id)),
     staleTime: QR_TIME_CACHE,
+    onError: () => {
+      toast.error(
+        `Có lỗi sảy ra vui lòng thử lại sau (code_error: size_error)`
+      );
+    },
   });
 
   const defaultInputForm: FormData = {
-    color: "black",
+    // color: "black",
     size: "",
+    id: (dataPrDetail && Number(dataPrDetail?.id)) || 0,
   };
 
-  const { register, handleSubmit, setValue, getValues } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+    clearErrors,
+  } = useForm<FormData>({
     defaultValues: defaultInputForm,
-    // resolver: yupResolver(validationSchema),
+    resolver: validationResolver,
   });
 
-  const handleInputChange = (type: "color" | "size" , value: string) => {
-    setValue(type, value);
-    if (type === 'color') {
-      setColorPicker(value);
-    } else if (type === 'size') {
-      setSizePicker(value);
-    }
+  const handleInputChange = (type: "size", value: number) => {
+    setValue(type, value.toString());
+    clearErrors("size");
+    // if (type === 'color') {
+    // setColorPicker(value);
+    // } else if (type === 'size') {
+    setSizePicker(value);
+    // }s
   };
 
   const onSubmit = (data: FormData) => {
@@ -238,22 +288,25 @@ export function ProductDetail() {
                       (item: IProductSize, index: number) => (
                         <div
                           className={`${
-                            sizePicker == item.name &&
-                            style.productDT_size_active
+                            sizePicker == item.id && style.productDT_size_active
                           } ${style.productDT_size}`}
                           key={index}
                         >
                           <input
                             type="radio"
-                            value={item.name}
+                            value={Number(item.id)}
                             name="size_picker"
                             id={`size_picker_${index}`}
                             {...register}
                             className={style.hidden_input_radio}
-                            onChange={(e) => handleInputChange('size', e.target.value)}
+                            onChange={(e) =>
+                              handleInputChange("size", Number(e.target.value))
+                            }
                           />
                           <label
-                            className={style.size_picker_label}
+                            className={`${errors.size && style.error_border} ${
+                              style.size_picker_label
+                            }`}
                             htmlFor={`size_picker_${index}`}
                           >
                             <p>{item?.name}</p>
@@ -262,6 +315,9 @@ export function ProductDetail() {
                       )
                     )}
                 </div>
+                {errors.size && (
+                  <FormHelperText error>{errors.size.message}</FormHelperText>
+                )}
               </div>
 
               <div className={style.add_cart_btn}>
@@ -292,7 +348,9 @@ export function ProductDetail() {
               <h3 className={style.productDT_title}>Mô tả</h3>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: dataProduct?.context?.short_content ? dataProduct.context.short_content : "Đang cập nhật",
+                  __html: dataProduct?.context?.short_content
+                    ? dataProduct.context.short_content
+                    : "Đang cập nhật",
                 }}
                 className={style.productDT_desc_text}
               ></div>
