@@ -126,7 +126,7 @@ export function ProductDetail() {
   const defaultInputForm: FormData = {
     // color: "black",
     size: "",
-    id: (dataPrDetail && Number(dataPrDetail?.id)) || 0,
+    id: 0,
   };
 
   const {
@@ -144,6 +144,7 @@ export function ProductDetail() {
   const handleInputChange = (type: "size", value: number) => {
     setValue(type, value.toString());
     clearErrors("size");
+    
     // if (type === 'color') {
     // setColorPicker(value);
     // } else if (type === 'size') {
