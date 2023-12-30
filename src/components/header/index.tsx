@@ -18,8 +18,9 @@ import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { BiCart, BiHeart, BiSearch, BiUser } from "react-icons/bi";
 import { useQuery } from "react-query";
 import style from "./style.module.css";
+import { QR_TIME_CACHE } from "@/constants";
 
-export default function Header() {
+export function Header() {
   const onLogout = useLogout();
   const IS_MB = useMediaQuery("(max-width:1023px)");
   const [isOverlayActive, setIsOverlayActive] = useState(false);
@@ -35,15 +36,13 @@ export default function Header() {
   const { data: tagsShop } = useQuery({
     queryKey: ["TAGS_SHOP"],
     queryFn: () => tagApi.getTags({ ...params, type: "SHOP" }),
-    onSuccess: () => {},
-    onError: () => {},
+    staleTime: QR_TIME_CACHE,
   });
 
   const { data: tagsCollab } = useQuery({
     queryKey: ["TAGS_COLLAP"],
     queryFn: () => tagApi.getTags({ ...params, type: "COLLAB" }),
-    onSuccess: () => {},
-    onError: () => {},
+    staleTime: QR_TIME_CACHE,
   });
 
   return (
@@ -52,8 +51,8 @@ export default function Header() {
       <div className={style.header}>
         <div className={style.headerWrap}>
           <Container
-            maxWidth={false}
-            sx={{ maxWidth: "1440px", height: "100%" }}
+            maxWidth={"xl"}
+            sx={{height: "100%"}}
           >
             <div className={style.header_box}>
               {/* left */}
@@ -202,13 +201,13 @@ export function SubMenu(props: ISubMenu) {
         </Link>
         {tags && (
           <div className={style.subMenus}>
-            <Container maxWidth={false} sx={{ maxWidth: "1440px" }}>
+            <Container maxWidth={"xl"}>
               <ul className={style.subMenusWrap}>
                 <Masonry columns={4} spacing={3}>
                   {tags?.context?.data.map((tag: ITag) => (
                     <li key={tag.id} className={style.subMenu}>
                       <Link
-                        href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}`}
+                        href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}`}
                       >
                         {tag.name}
                       </Link>
@@ -216,7 +215,7 @@ export function SubMenu(props: ISubMenu) {
                         {tag?.categories?.map((category: ICategories) => (
                           <li className={style.subMemuItem} key={category.id}>
                             <Link
-                              href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}.${tag.id}&category=${category.name}`}
+                              href={`/danh-sach-san-pham?type=${menuType}&tag=${tag.name_slugify}&category=${category.name}`}
                             >
                               {category.name}
                             </Link>

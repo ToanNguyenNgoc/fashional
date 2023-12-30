@@ -42,7 +42,7 @@
   position: sticky;
   top: 148px;
   left: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .productsRight {
   width: 100%;

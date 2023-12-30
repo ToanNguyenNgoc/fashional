@@ -6,10 +6,10 @@ import Image from "next/image";
 import { imgs } from "@/assets/imgs";
 import { Container } from "@mui/material";
 
-export default function Footer() {
+export function Footer() {
   return (
     <div className={style.footer}>
-      <Container maxWidth={false} sx={{ maxWidth: "1440px" }}>
+      <Container maxWidth={"xl"}>
         <div className={style.footer_wrap}>
           <div className={style.footer_left}>
             <div className={style.footer_logos}>

@@ -2,10 +2,10 @@ import { NextPageWithLayout } from "@/common";
 import { Seo } from "@/components";
 import {
   HomeBanner,
-  HomeNewArrivals,
   HomeCategoryImg,
+  HomeNewArrivals,
 } from "@/components/page/home";
-import { MainLayout } from "@/layouts";
+import { HomeLayout } from "@/layouts";
 import { Container } from "@mui/material";
 
 const Home: NextPageWithLayout = (props) => {
@@ -46,7 +46,7 @@ const Home: NextPageWithLayout = (props) => {
       />
       <main>
         <HomeBanner />
-        <Container maxWidth={false} sx={{ maxWidth: "1440px" }}>
+        <Container sx={{ maxWidth: "1440px" }}>
           <HomeCategoryImg fakeData={fakeData2} />
           <HomeCategoryImg fakeData={fakeData1} />
           <HomeNewArrivals />
@@ -56,4 +56,4 @@ const Home: NextPageWithLayout = (props) => {
   );
 };
 export default Home;
-Home.Layout = MainLayout;
+Home.Layout = HomeLayout;

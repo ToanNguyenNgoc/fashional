@@ -10,6 +10,7 @@ module.exports = {
       "admin.fashional.pro",
       "source.unsplash.com",
       "cdn.sanity.io",
+      "api.myspa.vn"
     ],
   },
   async rewrites() {

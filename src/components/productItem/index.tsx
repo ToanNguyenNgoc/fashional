@@ -3,13 +3,15 @@ import React from "react";
 import style from "./style.module.css";
 import Image from "next/image";
 import { formatMoney } from "@/utils";
+import Link from "next/link";
 interface IProps {
   item: IProduct;
 }
 export const ProductItem = (props: IProps) => {
   const { item } = props;
   return (
-    <div key={item.id} className={style.proItem}>
+
+    <Link href={`/san-pham/${item.name_slugify}`}  key={item.id} className={style.proItem}>
       <div className={style.proItemTags}>
         <p className={style.proItemTag}>{item.tag.name}</p>
         <p className={style.proItemTag}>{item.category.name}</p>
@@ -39,6 +41,6 @@ export const ProductItem = (props: IProps) => {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

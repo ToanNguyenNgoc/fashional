@@ -23,6 +23,7 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "js-cookie": "^3.0.5",
+    "lightgallery": "^2.7.2",
     "lodash": "^4.17.21",
     "next": "13.4.12",
     "query-string": "^8.1.0",

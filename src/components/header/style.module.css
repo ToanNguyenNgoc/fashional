@@ -12,7 +12,8 @@
   background-color: var(--white);
   width: 100%;
   margin: 0 auto;
-  box-shadow: var(--box-shadow-2,0 2px 4px 0 rgba(13,22,25,.0588235294));
+  /* box-shadow: var(--box-shadow-2,0 2px 4px 0 rgba(13,22,25,.0588235294)); */
+  border-bottom: 1px solid var(--gray);
 }
 .header_box{
   display: flex;

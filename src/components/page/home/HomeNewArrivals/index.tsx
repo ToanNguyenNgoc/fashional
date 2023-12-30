@@ -5,6 +5,7 @@ import { FC } from "react";
 import { useQuery } from "react-query";
 import style from "./style.module.css";
 import { productApi } from "@/services";
+import { QR_TIME_CACHE } from "@/constants";
 
 export const HomeNewArrivals: FC = () => {
   const params: IQrProduct = {
@@ -15,9 +16,8 @@ export const HomeNewArrivals: FC = () => {
   };
   const { data, isFetching } = useQuery({
     queryKey: ["ARRIVALS"],
-    queryFn: () => productApi.getProductArrivals(params),
-    onSuccess: () => {},
-    onError: () => {},
+    queryFn: () => productApi.getProducts(params),
+    staleTime: QR_TIME_CACHE,
   });
   const arrivalsList = data?.context.data;
 

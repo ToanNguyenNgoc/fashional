@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
-
 interface FBInterface {
   init: (params: { xfbml?: boolean; version?: string }) => void;
 }
-
 interface CustomWindow extends Window {
   FB?: FBInterface;
   fbAsyncInit?: () => void;

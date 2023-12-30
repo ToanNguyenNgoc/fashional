@@ -9,7 +9,7 @@ export interface ICategories {
   updated_at: string;
 }
 
-export interface ICategory {
+export interface ICategoryProduct {
   id: number;
   name: string;
   name_slugify: string;

@@ -1,8 +1,8 @@
 import {
   IBranches,
-  ICategory,
+  ICategoryProduct,
   IPage,
-  ITagLittle,
+  ITagProductDetail,
 } from "@/interfaces/index.type";
 
 export interface IQrProduct extends IPage {
@@ -36,6 +36,43 @@ export interface IProduct {
   tag_id: number;
   category_id: number;
   branches: IBranches[];
-  tag: ITagLittle;
-  category: ICategory;
+  tag: ITagProductDetail;
+  category: ICategoryProduct;
+}
+
+export interface IQrProductById {
+  includes?: "created_by" | "category" | "sizes" | string;
+}
+
+export interface IMedia {
+  media: {
+    id: number;
+    name: string;
+    file_name: string;
+    mime_type: string;
+    size: number;
+    disk: string;
+    created_at: string;
+    updated_at: string;
+    original_url: string;
+  };
+}
+
+export interface IAccountProduct {
+  id: number;
+  fullname: string;
+}
+
+export interface IProductDetail extends IProduct {
+  media: IMedia[];
+  account: IAccountProduct;
+}
+
+export interface IProductSize {
+  id: number,
+  product_id: number,
+  name: string,
+  status: boolean,
+  updated_at: string,
+  created_at: string
 }

@@ -18,7 +18,7 @@ export interface ITag {
   created_at: string;
 }
 
-export interface ITagLittle {
+export interface ITagProductDetail {
   id: number;
   name: string;
   name_slugify: string;
