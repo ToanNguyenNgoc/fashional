@@ -13,7 +13,7 @@ export const HomeCategoryImg = (props: IProps) => {
   return (
     <div className={style.HomeCategoryImg}>
       <h2 className={style.homeCateTitle}>Shop By Style</h2>
-      <div
+      <ul
         style={
           fakeData.length === 3 || (fakeData.length === 1 && IS_MB)
             ? { overflow: "unset" }
@@ -24,7 +24,7 @@ export const HomeCategoryImg = (props: IProps) => {
         }`}
       >
         {fakeData.slice(0, 4).map((item: any, index: number) => (
-          <div className={style.homeCateItem} key={index}>
+          <li className={style.homeCateItem} key={index}>
             <Image
               fill={true}
               src={item?.img}
@@ -37,9 +37,9 @@ export const HomeCategoryImg = (props: IProps) => {
               <span>Lorem, ipsum dolor.</span>
             </div>
             <div className={style.overlay_img}></div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

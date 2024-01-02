@@ -24,9 +24,6 @@ const Products: NextPageWithLayout = () => {
     page: 1,
     limit: 15,
   };
-  // console.log(tagParamUrl);
-
-  // console.log(tagParamUrl && tagParamUrl?.split(".")[1]);
   const { data: dataTags } = useQuery({
     queryKey: ["TAGS_SHOP", typeParamUrl],
     queryFn: () =>
@@ -41,9 +38,9 @@ const Products: NextPageWithLayout = () => {
     status: true,
     tag_id: tagItem && tagItem.id,
   };
-  const { data: dataProducts, isFetching } = useQuery({
+  const { data: dataProducts } = useQuery({
     queryKey: ["PRODUCTS", paramsProducts],
-    queryFn: () => productApi.getProductArrivals(paramsProducts),
+    queryFn: () => productApi.getProducts(paramsProducts),
   });
   const productList = dataProducts?.context.data;
 

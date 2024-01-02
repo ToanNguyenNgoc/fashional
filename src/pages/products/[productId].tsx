@@ -1,9 +1,12 @@
-import React from "react";
+import { ProductDetail } from "@/components/page/productDetail";
+import { MainLayout } from "@/layouts";
 
-export default function ProductId() {
+function ProductId() {
   return (
     <>
-      <p>product ID</p>
+      <ProductDetail />
     </>
   );
 }
+export default ProductId;
+ProductId.Layout = MainLayout;

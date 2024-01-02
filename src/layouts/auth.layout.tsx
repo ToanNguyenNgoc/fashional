@@ -4,8 +4,7 @@ import { useProfileStore } from "@/store/zustand";
 import { IProfileState } from "@/store/zustand/type";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import { Footer, Header } from "@/components";
 
 export function AuthLayout({ children }: LayoutProps) {
   const router = useRouter();

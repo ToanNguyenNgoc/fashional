@@ -2,11 +2,16 @@ import { AppPropsWithLayout } from "@/common";
 import { queryClient } from "@/configs";
 import { AppProvider } from "@/context";
 import { EmptyLayout } from "@/layouts";
-import "@/styles/globals.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { QueryClientProvider } from "react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "lightgallery/css/lg-thumbnail.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lightgallery.css";
+import "@/styles/globals.css";
 const theme = createTheme({
   typography: {
     fontFamily: [

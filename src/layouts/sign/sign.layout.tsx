@@ -1,6 +1,5 @@
 import { LayoutProps } from "@/common";
-import { Seo } from "@/components";
-import Footer from "@/components/footer";
+import { Footer, Seo } from "@/components";
 import { Container, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";

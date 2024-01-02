@@ -6,6 +6,6 @@ export * from "./menuMb";
 export * from "./button";
 export * from "./card";
 export * from "./dialog";
-export * from "./pluginMessagerFacebook";
+export * from "./facebookMessengerChat";
 export * from "./productItem";
 export * from "./skeleton/index";
