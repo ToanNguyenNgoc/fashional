@@ -12,9 +12,8 @@
   --text-gray: #6a6c7f;
   --border-gray: #e7e8e9;
   --overlay: hsla(0, 0%, 7%, 0.36);
-  --box-shadow-1: 0 4px 8px 0 rgba(16,25,40,.1);
+  --box-shadow-1: 0 4px 8px 0 rgba(16, 25, 40, 0.1);
   --box-shadow-2: 0 2px 4px 0 rgba(13, 22, 25, 0.0588235294);
-
   --trans-liner: all 0.3s linear;
 }
 
@@ -64,24 +63,13 @@ body {
   line-height: 1;
   margin: 0;
   font-family: "Helvetica", Courier, monospace;
-  /* background-color: var(--gray); */
 }
-/* body > div {
-  padding-top: 64px;
-} */
-/* custom checkbox */
-.MuiButtonBase-root.MuiCheckbox-root {
-  padding: 0;
-  color: var(--primary);
-}
-
 /* hide number arrows */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* disable scroll drawer */
 .MuiPaper-root.MuiDrawer-paper {
   overflow-x: hidden;
