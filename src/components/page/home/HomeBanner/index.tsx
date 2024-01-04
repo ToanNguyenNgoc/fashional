@@ -9,9 +9,9 @@ export const HomeBanner: FC = () => {
   const videoMB =
     "https://cdn.sanity.io/files/qa41whrn/staging/95e1b29be20ab4a06ecc4ff2f2161b773f7e2af4.mp4";
   const imgMB =
-    "https://cdn.sanity.io/images/qa41whrn/staging/b1f7fba06b787b90126b20830ee0d67aa897da70-1536x1536.png?w=720&q=80&auto=format";
+    "https://cdn.sanity.io/images/qa41whrn/staging/0bc0ba3aed0566e74b233cab3485e6d6039650e9-1536x1536.jpg?w=720&q=80&auto=format";
   const imgPC =
-    "https://cdn.sanity.io/images/qa41whrn/staging/0f05c5685c5f70bab563287fb7b183261d3fc07d-1440x350.png?w=2160&q=80&auto=format";
+    "https://cdn.sanity.io/images/qa41whrn/staging/26f2ce14a23a1f32577f37954b1356a9bccbaeac-1440x500.jpg?w=2160&q=80&auto=format";
   const videoSource = IS_MB ? videoMB : videoPC;
   return (
     <div className={style.homeBanner}>

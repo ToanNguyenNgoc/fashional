@@ -61,11 +61,11 @@ export default function AddToCart(props: IProps) {
     resolver: validationResolver,
   });
 
-  const handleInputChange = (value: number, id: number) => {
+  const handleInputChange = (value: number| string, id: number) => {
     setValue("size", value.toString());
     setValue("id", id);
     clearErrors("size");
-    setSizePicker(value);
+    setSizePicker(id);
   };
 
   const onSubmit = (data: FormData) => {
@@ -129,12 +129,12 @@ export default function AddToCart(props: IProps) {
                   {...register}
                   className={style.hidden_input_radio}
                   onChange={(e) =>
-                    handleInputChange(Number(e.target.value), item?.id)
+                    handleInputChange(item?.name, item?.id)
                   }
                 />
                 <label
                   className={`${
-                    sizePicker == item.name && style.productDT_size_active
+                    sizePicker == item.id && style.productDT_size_active
                   } ${errors.size && style.error_border} ${
                     style.size_picker_label
                   }`}
