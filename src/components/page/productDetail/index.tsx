@@ -103,8 +103,8 @@ export function ProductDetail() {
             )}
 
 
-            {dataProductSize && (
-              <AddToCart dataProductSize={dataProductSize?.context?.data} />
+            {dataProductSize && dataPrDetail &&  (
+              <AddToCart dataPrDetail = {dataPrDetail} dataProductSize={dataProductSize?.context?.data} />
             )}
 
             <div className={style.productDT_desc}>
