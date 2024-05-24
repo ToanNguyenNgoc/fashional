@@ -7,3 +7,9 @@ export type IProfileState = {
   logoutProfile: () => Promise<void>;
   // putProfile: (newProfile: User) => void;
 };
+
+export type ITagState = {
+  tag: any
+  isLoading: boolean;
+  getTag: () => Promise<void>;
+};

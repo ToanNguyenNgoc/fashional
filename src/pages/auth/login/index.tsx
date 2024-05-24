@@ -19,6 +19,8 @@ import { useMutation } from "react-query";
 import * as Yup from "yup";
 import style from "../style.module.css";
 import { toast } from "react-toastify";
+import Image from "next/image";
+import { imgs } from "@/assets/imgs";
 
 const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -84,16 +86,19 @@ const LoginPage: NextPageWithLayout = () => {
     <>
       <Container>
         <div className={style.loginWraper}>
-          {/* <div className={style.loginLeft}>
-            <div className={style.banner}>
+          <div className={style.loginLeft}>
+            <div  className={style.banner}>
               <Image
                 src={imgs.imgBanner}
-                width={800}
-                height={400}
                 alt="Picture of the author"
+                sizes="500px"
+                fill
+                style={{
+                  objectFit: 'contain',
+                }}
               />
             </div>
-          </div> */}
+          </div>
           <div className={style.loginRight}>
             <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
               <p className={style.loginTitle}>Đăng nhập</p>

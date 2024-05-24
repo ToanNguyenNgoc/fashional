@@ -6,6 +6,17 @@
   height: 100%;
   padding: 36px 0;
 }
+.footer div .footer__mb{
+  margin-bottom: 24px;
+}
+.footer div .footer__mb div {
+  background-color: transparent;
+  color: #fff;
+  box-shadow: none;
+}
+.footer div .footer__mb > div:not(:last-child) {
+  border-bottom: 1px solid #cccccc7f;
+}
 .footer_wrap {
   display: flex;
 }
@@ -66,8 +77,15 @@
   color: var(--text-gray);
   font-size: 14px;
 }
-
+.footer__link{
+  color: #fff;
+  padding-bottom: 14px;
+  display: inline-block;
+}
 @media screen and (max-width: 767.98px) {
+  .footer{
+    padding: 24px 0 48px 0;
+  }
   .footer_wrap{
     flex-direction: column;
     gap: 36px;

@@ -7,11 +7,15 @@ export const useProfileStore = create<IProfileState>()((set) => ({
   profile: null,
   isLoading: true,
   getProfile: async () => {
-    try {
-      const res = await profileApi.getProfile();
-      set((state) => ({ profile: res.context, isLoading: false }));
-    } catch (error) {
-      set((state) => ({ isLoading: false }));
+    if (Cookies.get('token_expired_at')) {
+      try {
+        const res = await profileApi.getProfile();
+        set((state) => ({ profile: res.context, isLoading: false }));
+      } catch (error) {
+        set((state) => ({ isLoading: false }));
+      }
+    } else {
+      set((state) => ({ isLoading: false }))
     }
   },
   logoutProfile: async () => {
