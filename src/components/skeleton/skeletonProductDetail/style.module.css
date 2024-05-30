@@ -1,0 +1,42 @@
+.skeletonProDT {
+  display: flex;
+  gap: 24px;
+  padding: 48px;
+}
+.left {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  width: 66.66%;
+}
+.item {
+  aspect-ratio: 1/1;
+}
+.right {
+  width: 33.33%;
+}
+.name {
+  line-height: 2.5;
+}
+.tag {
+  margin: 12px 0 0 0;
+}
+.price,
+.title {
+  margin-top: 24px;
+}
+@media screen and (max-width: 1023.98px) {
+.skeletonProDT {
+  padding: 24px 0 0 0;
+}
+}
+
+@media screen and (max-width: 767.98px) {
+.skeletonProDT {
+  padding: 18px 0 0 0;
+  flex-direction: column;
+}
+.left, .right{
+  width: 100%;
+}
+}

@@ -9,6 +9,8 @@ import { HomeLayout } from "@/layouts";
 import { Container } from "@mui/material";
 
 const Home: NextPageWithLayout = (props) => {
+
+  
   const fakeData1 = [
     {
       id: 1,
